@@ -41,3 +41,13 @@ After running code, you will see a Case 03-1.xml file.
 Then you put the xml and scn files into the same folder, and open the scn file using ImageScope software (only avilable in Windows OS), you can see something like the following image, with green detection results.
 
 <img src="https://github.com/yuankaihuo/temp/blob/master/screenshot.jpg" width="60%" /> 
+
+
+### Run your own training code
+The training code is
+```
+python main.py circledet --exp_id kidpath_dla_batch4 --arch dla_34 --batch_size 4 --master_batch 4 --lr 2.5e-4   --gpus 0 --print_iter 1  --dataset kidpath --save_all --load_model ../models/ctdet_coco_dla_2x.pth
+```
+
+You can get the ctdet_coco_dla_2x.pth model from model zoo
+https://github.com/xingyizhou/CenterNet/blob/master/readme/MODEL_ZOO.md
