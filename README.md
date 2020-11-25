@@ -25,7 +25,7 @@ https://github.com/xingyizhou/CenterNet/blob/master/readme/INSTALL.md
 
 ### Testing on a whole slide image
 The Case 03-1.scn file is avilable
-https://vumc.box.com/s/k5ptp4630age6xs7zvf8n64b45v2534o
+https://vanderbilt.box.com/s/s530m45rvk626xi1thwcdc2bhoea758r
 
 The model_10.pth model file is avilable (human kidney)
 https://vumc.box.com/s/wpar2kz9600h9ao3wowjzc3y50znneop
