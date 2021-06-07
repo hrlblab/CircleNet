@@ -42,6 +42,8 @@ Then you put the xml and scn files into the same folder, and open the scn file u
 
 <img src="https://github.com/yuankaihuo/temp/blob/master/screenshot.jpg" width="60%" /> 
 
+### A Google Colab demo of the above testing code is added 
+https://github.com/hrlblab/CircleNet/blob/master/src/circle_net_demo.ipynb
 
 ### Run your own training code
 The training code is
