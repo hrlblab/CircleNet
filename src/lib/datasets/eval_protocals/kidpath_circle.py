@@ -146,7 +146,7 @@ class CIRCLE:
                 anns = list(itertools.chain.from_iterable(lists))
             else:
                 anns = self.dataset['annotations']
-            anns = anns if len(catIds)  == 0 else [ann for ann in anns if ann['category_id'] in catIds]
+            anns = anns if len(catIds)  == 0 else [ann for ann in anns if int(ann['category_id']) in catIds]
             anns = anns if len(areaRng) == 0 else [ann for ann in anns if ann['area'] > areaRng[0] and ann['area'] < areaRng[1]]
         if not iscrowd == None:
             ids = [ann['id'] for ann in anns if ann['iscrowd'] == iscrowd]

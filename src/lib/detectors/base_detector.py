@@ -28,7 +28,7 @@ class BaseDetector(object):
 
     self.mean = np.array(opt.mean, dtype=np.float32).reshape(1, 1, 3)
     self.std = np.array(opt.std, dtype=np.float32).reshape(1, 1, 3)
-    self.max_per_image = 100
+    self.max_per_image = 1000
     self.num_classes = opt.num_classes
     self.scales = opt.test_scales
     self.opt = opt

@@ -44,8 +44,10 @@ def demo(opt):
               image_names.append(os.path.join(opt.demo, file_name))
     else:
       image_names = [opt.demo]
+
+    print(image_names)
     
-    for (image_name) in image_names:
+    for image_name in image_names:
       ret = detector.run(image_name)
       time_str = ''
       for stat in time_stats:

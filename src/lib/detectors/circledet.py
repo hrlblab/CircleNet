@@ -7,6 +7,7 @@ import numpy as np
 from progress.bar import Bar
 import time
 import torch
+import os
 
 from external.nms import soft_nms
 from models.decode import circledet_decode
@@ -20,7 +21,7 @@ from .base_detector import BaseDetector
 class CircledetDetector(BaseDetector):
   def __init__(self, opt):
     super(CircledetDetector, self).__init__(opt)
-  
+
   def process(self, images, return_time=False):
     with torch.no_grad():
       output = self.model(images)[-1]
@@ -34,7 +35,7 @@ class CircledetDetector(BaseDetector):
       torch.cuda.synchronize()
       forward_time = time.time()
       dets = circledet_decode(hm, cl, reg=reg, K=self.opt.K)
-      
+
     if return_time:
       return output, dets, forward_time
     else:
@@ -80,14 +81,14 @@ class CircledetDetector(BaseDetector):
       for k in range(len(dets[i])):
         if detection[i, k, 4] > self.opt.center_thresh:
           debugger.add_coco_bbox(detection[i, k, :4], detection[i, k, -1],
-                                 detection[i, k, 4], 
+                                 detection[i, k, 4],
                                  img_id='out_pred_{:.1f}'.format(scale))
 
-  def show_results(self, debugger, image, results):
+  def show_results(self, debugger, image, results, name):
 
     if self.opt.filter_boarder:
-      output_h = self.opt.input_h  #hard coded
-      output_w = self.opt.input_w #hard coded
+      output_h = self.opt.input_h  # hard coded
+      output_w = self.opt.input_w # hard coded
       for j in range(1, self.num_classes + 1):
         for i in range(len(results[j])):
           cp = [0, 0]
@@ -101,11 +102,11 @@ class CircledetDetector(BaseDetector):
             results[j][i][3]  = 0
             continue
 
-
-    debugger.add_img(image, img_id='circledet')
+    debugger.add_img(image, img_id=os.path.basename(name.split('.')[0]))
     for j in range(1, self.num_classes + 1):
       for circle in results[j]:
         if circle[3] > self.opt.vis_thresh:
           debugger.add_coco_circle(circle[:3], circle[-1],
-                                   circle[3], img_id='circledet')
-    debugger.show_all_imgs(pause=self.pause)
+                                   circle[3], img_id=os.path.basename(name.split('.')[0]))
+    debugger.save_all_imgs(path='/home/sybbure/CircleNet/CircleNet/data/monuseg (copy)/monuseg overlay') # hard code
+    # debugger.show_all_imgs(pause=self.pause)

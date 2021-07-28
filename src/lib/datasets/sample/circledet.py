@@ -35,8 +35,8 @@ class CirCleDataset(data.Dataset):
         anns = self.coco.loadAnns(ids=ann_ids)
         num_objs = min(len(anns), self.max_objs)
 
+        # Get the image
         img = cv2.imread(img_path)
-
         height, width = img.shape[0], img.shape[1]
 
         c = np.array([img.shape[1] / 2., img.shape[0] / 2.], dtype=np.float32)
@@ -50,19 +50,26 @@ class CirCleDataset(data.Dataset):
 
         flipped = False
         if self.split == 'train':
+            # Random crop by default
             if not self.opt.not_rand_crop:
                 s = s * np.random.choice(np.arange(0.6, 1.4, 0.1))
                 w_border = self._get_border(128, img.shape[1])
                 h_border = self._get_border(128, img.shape[0])
                 c[0] = np.random.randint(low=w_border, high=img.shape[1] - w_border)
                 c[1] = np.random.randint(low=h_border, high=img.shape[0] - h_border)
+            # Otherwise scale and shift image
             else:
                 sf = self.opt.scale
                 cf = self.opt.shift
+
+                # Scale image
                 c[0] += s * np.clip(np.random.randn() * cf, -2 * cf, 2 * cf)
                 c[1] += s * np.clip(np.random.randn() * cf, -2 * cf, 2 * cf)
+
+                # Shift image
                 s = s * np.clip(np.random.randn() * sf + 1, 1 - sf, 1 + sf)
 
+            # Flip image
             if np.random.random() < self.opt.flip:
                 flipped = True
                 img = img[:, ::-1, :]
@@ -76,12 +83,19 @@ class CirCleDataset(data.Dataset):
             if self.opt.rotate == 270:
                 img = cv2.rotate(img, cv2.img_rotate_90_counterclockwise)
 
+        # Perform affine transformation
         trans_input = get_affine_transform(
             c, s, 0, [input_w, input_h])
+
+        # Warp affine
         inp = cv2.warpAffine(img, trans_input,
                              (input_w, input_h),
                              flags=cv2.INTER_LINEAR)
+
+        # Scale RGB pixels
         inp = (inp.astype(np.float32) / 255.)
+
+        # Add color augmentation
         if self.split == 'train' and not self.opt.no_color_aug:
             color_aug(self._data_rng, inp, self._eig_val, self._eig_vec)
         inp = (inp - self.mean) / self.std
@@ -101,7 +115,7 @@ class CirCleDataset(data.Dataset):
         cat_spec_wh = np.zeros((self.max_objs, num_classes * 2), dtype=np.float32)
         cat_spec_mask = np.zeros((self.max_objs, num_classes * 2), dtype=np.uint8)
 
-        #add for circle
+        # Add for circle
         cl = np.zeros((self.max_objs, 1), dtype=np.float32)
         dense_cl = np.zeros((1, output_h, output_w), dtype=np.float32)
         reg_cl = np.zeros((self.max_objs, 2), dtype=np.float32)
@@ -113,15 +127,28 @@ class CirCleDataset(data.Dataset):
             draw_umich_gaussian
 
         gt_det = []
+        # For each object in the annotation
         for k in range(num_objs):
+            # Get the annotation
             ann = anns[k]
             bbox = self._coco_box_to_bbox(ann['bbox'])
-            cls_id = int(self.cat_ids[ann['category_id']])
+
+            # Debug print statements
+            # print(self.cat_ids)
+            # print(ann['category_id'])
+            # print(int(self.cat_ids[int(ann['category_id'])]))
+
+            cls_id = int(self.cat_ids[int(ann['category_id'])])
+
             center_point = ann['circle_center']
             center_radius = ann['circle_radius']
+
+            # If the image was flipped, then flip the annotation
             if flipped:
                 bbox[[0, 2]] = width - bbox[[2, 0]] - 1
                 center_point[0] = width - center_point[0]
+
+            # If the image was affine transformed, then transform the annotation
             bbox[:2] = affine_transform(bbox[:2], trans_output)
             bbox[2:] = affine_transform(bbox[2:], trans_output)
             center_point_aff = affine_transform(center_point, trans_output)

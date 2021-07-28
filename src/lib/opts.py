@@ -11,9 +11,9 @@ class opts(object):
     self.parser = argparse.ArgumentParser()
     # basic experiment setting
     self.parser.add_argument('task', default='ctdet',
-                             help='ctdet | ddd | multi_pose | exdet')
+                             help='ctdet | ddd | multi_pose | exdet | circledet')
     self.parser.add_argument('--dataset', default='coco',
-                             help='coco | kitti | coco_hp | pascal | kidpath')
+                             help='coco | kitti | coco_hp | pascal | kidpath | monuseg')
     self.parser.add_argument('--exp_id', default='default')
     self.parser.add_argument('--test', action='store_true')
     self.parser.add_argument('--ontestdata', action='store_true')
@@ -115,7 +115,7 @@ class opts(object):
                              help='multi scale test augmentation.')
     self.parser.add_argument('--nms', action='store_true',
                              help='run nms in testing.')
-    self.parser.add_argument('--K', type=int, default=100,
+    self.parser.add_argument('--K', type=int, default=1000,
                              help='max number of output objects.') 
     self.parser.add_argument('--not_prefetch_test', action='store_true',
                              help='not use parallal data pre-processing.')
@@ -358,9 +358,9 @@ class opts(object):
       'ctdet': {'default_resolution': [512, 512], 'num_classes': 80, 
                 'mean': [0.408, 0.447, 0.470], 'std': [0.289, 0.274, 0.278],
                 'dataset': 'coco'},
-      'circledet': {'default_resolution': [512, 512], 'num_classes': 1,
+      'circledet': {'default_resolution': [512, 512], 'num_classes': 12,
                   'mean': [0.408, 0.447, 0.470], 'std': [0.289, 0.274, 0.278],
-                  'dataset': 'kidpath'},
+                  'dataset': 'nucls'},
       'exdet': {'default_resolution': [512, 512], 'num_classes': 80, 
                 'mean': [0.408, 0.447, 0.470], 'std': [0.289, 0.274, 0.278],
                 'dataset': 'coco'},

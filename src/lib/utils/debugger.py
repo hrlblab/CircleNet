@@ -49,6 +49,10 @@ class Debugger(object):
       self.names = kidpath_class_name
     elif dataset == 'kidmouse':
       self.names = kidpath_class_name
+    elif dataset == 'monuseg':
+      self.names = monuseg_class_name
+    elif dataset == 'nucls':
+        self.names = nucls_class_name
     elif num_classes == 20 or dataset == 'pascal':
       self.names = pascal_class_name
     elif dataset == 'gta':
@@ -179,20 +183,21 @@ class Debugger(object):
     # cat = (int(cat) + 1) % 80
     cat = int(cat)
     # print('cat', cat, self.names[cat])
-    c = self.colors[cat][0][0].tolist()
-    if self.theme == 'white':
-      c = (255 - np.array(c)).tolist()
+    # c = self.colors[cat][0][0].tolist()
+    # if self.theme == 'white':
+    #   c = (255 - np.array(c)).tolist()
+    c = (0, 255, 0) # hardcode to green
     txt = '{}{:.1f}'.format(self.names[cat], conf)
     font = cv2.FONT_HERSHEY_SIMPLEX
     cat_size = cv2.getTextSize(txt, font, 0.5, 2)[0]
     cv2.rectangle(
       self.imgs[img_id], (bbox[0], bbox[1]), (bbox[2], bbox[3]), c, 2)
-    if show_txt:
-      cv2.rectangle(self.imgs[img_id],
-                    (bbox[0], bbox[1] - cat_size[1] - 2),
-                    (bbox[0] + cat_size[0], bbox[1] - 2), c, -1)
-      cv2.putText(self.imgs[img_id], txt, (bbox[0], bbox[1] - 2), 
-                  font, 0.5, (0, 0, 0), thickness=1, lineType=cv2.LINE_AA)
+    # if show_txt:
+    #   cv2.rectangle(self.imgs[img_id],
+    #                 (bbox[0], bbox[1] - cat_size[1] - 2),
+    #                 (bbox[0] + cat_size[0], bbox[1] - 2), c, -1)
+    #   cv2.putText(self.imgs[img_id], txt, (bbox[0], bbox[1] - 2),
+    #               font, 0.5, (0, 0, 0), thickness=1, lineType=cv2.LINE_AA)
 
   def add_coco_circle(self, circle, cat=0, conf=1, show_txt=True, img_id='default'):
     circle = np.array(circle, dtype=np.int32)
@@ -202,6 +207,7 @@ class Debugger(object):
     c = self.colors[cat][0][0].tolist()
     if self.theme == 'white':
       c = (255 - np.array(c)).tolist()
+    # c = (0, 255, 0)  # hardcode to green
     txt = '{}{:.1f}'.format(self.names[cat], conf)
     font = cv2.FONT_HERSHEY_SIMPLEX
     cat_size = cv2.getTextSize(txt, font, 0.5, 2)[0]
@@ -546,6 +552,14 @@ coco_class_name = [
 ]
 
 kidpath_class_name = ['glomerulus']
+
+monuseg_class_name = ['nuclei']
+
+nucls_class_name = [
+    'tumor', 'fibroblast', 'lymphocyte', 'plasma_cell', 'macrophage',
+    'mitotic_figure', 'vascular_endothelium', 'myoepithelium', 'neutrophil',
+    'apoptotic_body', 'ductal_epithelium', 'eosinophil'
+]
 
 color_list = np.array(
         [

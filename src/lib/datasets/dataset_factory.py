@@ -17,6 +17,8 @@ from .dataset.kidpath_old import KidPath_old
 from .dataset.kidmouse import KidMouse
 from .dataset.kidney_first_batch_081617_ADE import KidPath_FirstBatch_081617_ADE
 from .dataset.kidney_first_batch_R24 import KidPath_FirstBatch_R24
+from .dataset.monuseg import MoNuSeg
+from .dataset.nucls import NuCLS
 
 dataset_factory = {
   'coco': COCO,
@@ -28,6 +30,8 @@ dataset_factory = {
   'kidmouse': KidMouse,
   'kidney_first_batch_081617_ADE': KidPath_FirstBatch_081617_ADE,
   'kidpath_first_batch_R24': KidPath_FirstBatch_R24,
+  'monuseg': MoNuSeg,
+  'nucls' : NuCLS
 }
 
 _sample_factory = {
@@ -43,4 +47,4 @@ def get_dataset(dataset, task):
   class Dataset(dataset_factory[dataset], _sample_factory[task]):
     pass
   return Dataset
-  
+
