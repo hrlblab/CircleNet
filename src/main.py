@@ -18,118 +18,119 @@ from datasets.dataset_factory import get_dataset
 from trains.train_factory import train_factory
 import fractions
 
+
 def main(opt):
-  torch.manual_seed(opt.seed)
-  torch.backends.cudnn.benchmark = not opt.not_cuda_benchmark and not opt.test
-  Dataset = get_dataset(opt.dataset, opt.task)
-  opt = opts().update_dataset_info_and_set_heads(opt, Dataset)
-  print(opt)
+    torch.manual_seed(opt.seed)
+    torch.backends.cudnn.benchmark = not opt.not_cuda_benchmark and not opt.test
+    Dataset = get_dataset(opt.dataset, opt.task)
+    opt = opts().update_dataset_info_and_set_heads(opt, Dataset)
+    print(opt)
 
-  logger = Logger(opt)
+    logger = Logger(opt)
 
-  os.environ['CUDA_VISIBLE_DEVICES'] = opt.gpus_str
-  opt.device = torch.device('cuda' if opt.gpus[0] >= 0 else 'cpu')
-  
-  print('Creating model...')
-  model = create_model(opt.arch, opt.heads, opt.head_conv)
-  optimizer = torch.optim.Adam(model.parameters(), opt.lr)
-  start_epoch = 0
-  if opt.load_model != '':
-    model, optimizer, start_epoch = load_model(
-      model, opt.load_model, optimizer, opt.resume, opt.lr, opt.lr_step)
+    os.environ['CUDA_VISIBLE_DEVICES'] = opt.gpus_str
+    opt.device = torch.device('cuda' if opt.gpus[0] >= 0 else 'cpu')
 
-  Trainer = train_factory[opt.task]
-  trainer = Trainer(opt, model, optimizer)
-  trainer.set_device(opt.gpus, opt.chunk_sizes, opt.device)
+    print('Creating model...')
+    model = create_model(opt.arch, opt.heads, opt.head_conv)
+    optimizer = torch.optim.Adam(model.parameters(), opt.lr)
+    start_epoch = 0
+    if opt.load_model != '':
+        model, optimizer, start_epoch = load_model(
+            model, opt.load_model, optimizer, opt.resume, opt.lr, opt.lr_step)
 
-  print('Setting up data...')
-  if opt.ontestdata:
-      val_str = 'test'
-  else:
-      val_str = 'val'
+    Trainer = train_factory[opt.task]
+    trainer = Trainer(opt, model, optimizer)
+    trainer.set_device(opt.gpus, opt.chunk_sizes, opt.device)
 
-  val_loader = torch.utils.data.DataLoader(
-      Dataset(opt, val_str),
-      batch_size=1,
-      shuffle=False,
-      num_workers=1,
-      pin_memory=True
-  )
-
-  if opt.test:
-    _, preds = trainer.val(0, val_loader)
-    if not opt.rotate_reproduce:
-        if opt.task == 'circledet':
-            val_loader.dataset.run_circle_eval(preds, opt.save_dir)
-        else:
-            val_loader.dataset.run_eval(preds, opt.save_dir)
+    print('Setting up data...')
+    if opt.ontestdata:
+        val_str = 'test'
     else:
-        opt.rotate = opt.rotate_reproduce
-        val_loader = torch.utils.data.DataLoader(
-            Dataset(opt, val_str),
-            batch_size=1,
-            shuffle=False,
-            num_workers=1,
-            pin_memory=True
-        )
-        _, preds2 = trainer.val(0, val_loader)
-        preds2_rot = copy.deepcopy(preds2)
-        if opt.task == 'circledet':
-            preds2_rot = correct_rotate_circle(preds2_rot, 512, 512, 90)
-            all_box, match_box = caculate_matching_rate_circle(preds2_rot,preds, 0.5)
-            all_box2, match_box2 = caculate_matching_rate_circle(preds, preds2_rot, 0.5)
-            print(match_box*2/(all_box+all_box2))
+        val_str = 'val'
 
+    val_loader = torch.utils.data.DataLoader(
+        Dataset(opt, val_str),
+        batch_size=1,
+        shuffle=False,
+        num_workers=1,
+        pin_memory=True
+    )
+
+    if opt.test:
+        _, preds = trainer.val(0, val_loader)
+        if not opt.rotate_reproduce:
+            if opt.task == 'circledet':
+                val_loader.dataset.run_circle_eval(preds, opt.save_dir)
+            else:
+                val_loader.dataset.run_eval(preds, opt.save_dir)
         else:
-            preds2_rot = correct_rotate(preds2_rot, 512, 512, 90)
-            all_box, match_box = caculate_matching_rate(preds2_rot, preds, 0.5)
-            all_box2, match_box2 = caculate_matching_rate(preds, preds2_rot, 0.5)
-            print(match_box * 2 / (all_box + all_box2))
-    return
+            opt.rotate = opt.rotate_reproduce
+            val_loader = torch.utils.data.DataLoader(
+                Dataset(opt, val_str),
+                batch_size=1,
+                shuffle=False,
+                num_workers=1,
+                pin_memory=True
+            )
+            _, preds2 = trainer.val(0, val_loader)
+            preds2_rot = copy.deepcopy(preds2)
+            if opt.task == 'circledet':
+                preds2_rot = correct_rotate_circle(preds2_rot, 512, 512, 90)
+                all_box, match_box = caculate_matching_rate_circle(preds2_rot, preds, 0.5)
+                all_box2, match_box2 = caculate_matching_rate_circle(preds, preds2_rot, 0.5)
+                print(match_box * 2 / (all_box + all_box2))
 
+            else:
+                preds2_rot = correct_rotate(preds2_rot, 512, 512, 90)
+                all_box, match_box = caculate_matching_rate(preds2_rot, preds, 0.5)
+                all_box2, match_box2 = caculate_matching_rate(preds, preds2_rot, 0.5)
+                print(match_box * 2 / (all_box + all_box2))
+        return
 
-  train_loader = torch.utils.data.DataLoader(
-      Dataset(opt, 'train'), 
-      batch_size=opt.batch_size, 
-      shuffle=True,
-      num_workers=opt.num_workers,
-      pin_memory=True,
-      drop_last=True
-  )
+    train_loader = torch.utils.data.DataLoader(
+        Dataset(opt, 'train'),
+        batch_size=opt.batch_size,
+        shuffle=True,
+        num_workers=opt.num_workers,
+        pin_memory=True,
+        drop_last=True
+    )
 
-  print('Starting training...')
-  best = 1e10
-  for epoch in range(start_epoch + 1, opt.num_epochs + 1):
-    mark = epoch if opt.save_all else 'last'
-    log_dict_train, _ = trainer.train(epoch, train_loader)
-    logger.write('epoch: {} |'.format(epoch))
-    for k, v in log_dict_train.items():
-      logger.scalar_summary('train_{}'.format(k), v, epoch)
-      logger.write('{} {:8f} | '.format(k, v))
-    if opt.val_intervals > 0 and epoch % opt.val_intervals == 0:
-      save_model(os.path.join(opt.save_dir, 'model_{}.pth'.format(mark)), 
-                 epoch, model, optimizer)
-      with torch.no_grad():
-        log_dict_val, preds = trainer.val(epoch, val_loader)
-      for k, v in log_dict_val.items():
-        logger.scalar_summary('val_{}'.format(k), v, epoch)
-        logger.write('{} {:8f} | '.format(k, v))
-      if log_dict_val[opt.metric] < best:
-        best = log_dict_val[opt.metric]
-        save_model(os.path.join(opt.save_dir, 'model_best.pth'), 
-                   epoch, model)
-    else:
-      save_model(os.path.join(opt.save_dir, 'model_last.pth'), 
-                 epoch, model, optimizer)
-    logger.write('\n')
-    if epoch in opt.lr_step:
-      save_model(os.path.join(opt.save_dir, 'model_{}.pth'.format(epoch)), 
-                 epoch, model, optimizer)
-      lr = opt.lr * (0.1 ** (opt.lr_step.index(epoch) + 1))
-      print('Drop LR to', lr)
-      for param_group in optimizer.param_groups:
-          param_group['lr'] = lr
-  logger.close()
+    print('Starting training...')
+    best = 1e10
+    for epoch in range(start_epoch + 1, opt.num_epochs + 1):
+        mark = epoch if opt.save_all else 'last'
+        log_dict_train, _ = trainer.train(epoch, train_loader)
+        logger.write('epoch: {} |'.format(epoch))
+        for k, v in log_dict_train.items():
+            logger.scalar_summary('train_{}'.format(k), v, epoch)
+            logger.write('{} {:8f} | '.format(k, v))
+        if opt.val_intervals > 0 and epoch % opt.val_intervals == 0:
+            save_model(os.path.join(opt.save_dir, 'model_{}.pth'.format(mark)),
+                       epoch, model, optimizer)
+            with torch.no_grad():
+                log_dict_val, preds = trainer.val(epoch, val_loader)
+            for k, v in log_dict_val.items():
+                logger.scalar_summary('val_{}'.format(k), v, epoch)
+                logger.write('{} {:8f} | '.format(k, v))
+            if log_dict_val[opt.metric] < best:
+                best = log_dict_val[opt.metric]
+                save_model(os.path.join(opt.save_dir, 'model_best.pth'),
+                           epoch, model)
+        else:
+            save_model(os.path.join(opt.save_dir, 'model_last.pth'),
+                       epoch, model, optimizer)
+        logger.write('\n')
+        if epoch in opt.lr_step:
+            save_model(os.path.join(opt.save_dir, 'model_{}.pth'.format(epoch)),
+                       epoch, model, optimizer)
+            lr = opt.lr * (0.1 ** (opt.lr_step.index(epoch) + 1))
+            print('Drop LR to', lr)
+            for param_group in optimizer.param_groups:
+                param_group['lr'] = lr
+    logger.close()
+
 
 def correct_rotate(preds2, height, weith, rotate_degree):
     for pred in preds2:
@@ -146,6 +147,7 @@ def correct_rotate(preds2, height, weith, rotate_degree):
 
     return preds2
 
+
 def correct_rotate_circle(preds2, height, weith, rotate_degree):
     for pred in preds2:
         bboxs = preds2[pred][1]
@@ -161,6 +163,7 @@ def correct_rotate_circle(preds2, height, weith, rotate_degree):
 
     return preds2
 
+
 def caculate_matching_rate_circle(preds, preds2, thres):
     all_box = 0
     match_box = 0
@@ -168,21 +171,22 @@ def caculate_matching_rate_circle(preds, preds2, thres):
         pred_bboxs = preds[pred][1]
         pred2_bboxs = preds2[pred][1]
         for bi in range(len(pred_bboxs)):
-            if pred_bboxs[bi][3]>=thres:
-                all_box = all_box+1
+            if pred_bboxs[bi][3] >= thres:
+                all_box = all_box + 1
             else:
                 continue
             done_box = 0
             for bj in range(len(pred2_bboxs)):
-                if pred2_bboxs[bj][3] < thres or done_box==1:
+                if pred2_bboxs[bj][3] < thres or done_box == 1:
                     continue
                 overlap = circleIOU([pred2_bboxs[bj]], [pred_bboxs[bi]])
-                if overlap>0.5:
-                    match_box = match_box+1
+                if overlap > 0.5:
+                    match_box = match_box + 1
                     done_box = 1
     return all_box, match_box
 
-def circleIOU(d,g):
+
+def circleIOU(d, g):
     ious = np.zeros((len(d), len(g)))
     for di in range(len(d)):
         center_d_x = d[di][0]
@@ -192,17 +196,18 @@ def circleIOU(d,g):
             center_g_x = g[gi][0]
             center_g_y = g[gi][1]
             center_g_r = g[gi][2]
-            distance = math.sqrt((center_d_x - center_g_x)**2 + (center_d_y - center_g_y)**2)
-            if center_d_r <=0 or center_g_r <=0 or distance > (center_d_r + center_g_r) :
+            distance = math.sqrt((center_d_x - center_g_x) ** 2 + (center_d_y - center_g_y) ** 2)
+            if center_d_r <= 0 or center_g_r <= 0 or distance > (center_d_r + center_g_r):
                 ious[di, gi] = 0
             else:
-                overlap = solve(center_d_r, center_g_r, distance**2)
-                union = math.pi * (center_d_r**2) + math.pi * (center_g_r**2) -  overlap
+                overlap = solve(center_d_r, center_g_r, distance ** 2)
+                union = math.pi * (center_d_r ** 2) + math.pi * (center_g_r ** 2) - overlap
                 if union == 0:
-                    ious[di,gi] = 0
+                    ious[di, gi] = 0
                 else:
-                    ious[di, gi] = overlap/union
+                    ious[di, gi] = overlap / union
     return ious
+
 
 def caculate_matching_rate(preds, preds2, thres):
     all_box = 0
@@ -211,19 +216,20 @@ def caculate_matching_rate(preds, preds2, thres):
         pred_bboxs = preds[pred][1]
         pred2_bboxs = preds2[pred][1]
         for bi in range(len(pred_bboxs)):
-            if pred_bboxs[bi][4]>=thres:
-                all_box = all_box+1
+            if pred_bboxs[bi][4] >= thres:
+                all_box = all_box + 1
             else:
                 continue
             done_box = 0
             for bj in range(len(pred2_bboxs)):
-                if pred2_bboxs[bj][4] < thres or done_box==1:
+                if pred2_bboxs[bj][4] < thres or done_box == 1:
                     continue
                 overlap = IOU(pred2_bboxs[bj], pred_bboxs[bi])
-                if overlap>0.5:
-                    match_box = match_box+1
+                if overlap > 0.5:
+                    match_box = match_box + 1
                     done_box = 1
     return all_box, match_box
+
 
 def solve(r1, r2, d_squared):
     r1, r2 = min(r1, r2), max(r1, r2)
@@ -289,6 +295,7 @@ def acos_sqrt(x, sgn):
 
     return math.acos(sgn * math.sqrt(x))
 
+
 def IOU(box1, gts):
     """compute intersection over union"""
     ixmin = np.maximum(gts[0], box1[0])
@@ -307,8 +314,9 @@ def IOU(box1, gts):
     # jmax = np.argmax(overlaps)
     return overlaps
 
-if __name__ == '__main__':
-  os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
-  opt = opts().parse()
-  main(opt)
+if __name__ == '__main__':
+    os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+
+    opt = opts().parse()
+    main(opt)
