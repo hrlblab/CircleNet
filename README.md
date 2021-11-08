@@ -13,21 +13,87 @@ full citation is
 Haichun Yang, Ruining Deng, Yuzhe Lu, Zheyu Zhu, Ye Chen, Joseph T. Roland, Le Lu, Bennett A. Landman, Agnes B. Fogo, and Yuankai Huo. "CircleNet: Anchor-free Detection with Circle Representation." arXiv preprint arXiv:2006.02474 (2020).
 
 ### Envrioment Set up
-We used CUDA 10.2 and PyTorch 0.4.1. 
+We used PyTorch 0.4.1. 
 
-The implementation is based on the CenterNet.
-https://github.com/xingyizhou/CenterNet
+The implementation is based on the [CenterNet](https://github.com/xingyizhou/CenterNet) project.
 
-Please install the packages, following 
-https://github.com/xingyizhou/CenterNet/blob/master/readme/INSTALL.md
-* For "Clone this repo" step, please clone CircleNet rather than CenterNet
+
+Please follow the instructions adapted from [here](https://github.com/xingyizhou/CenterNet/blob/master/readme/INSTALL.md) to set up the environment.
+
+
+1. [Optional but recommended] create a new conda environment. 
+
+    ~~~
+    conda create --name CircleNet python=3.6
+    ~~~
+    
+    And activate the environment.
+    
+    ~~~
+    conda activate CircleNet
+    ~~~
+
+2. Install pytorch0.4.1:
+
+    ~~~
+    conda install pytorch=0.4.1 cuda92 torchvision -c pytorch
+    ~~~
+    
+    And disable cudnn batch normalization(Due to [this issue](https://github.com/xingyizhou/pytorch-pose-hg-3d/issues/16)).
+    
+    ~~~
+    # PYTORCH=/path/to/pytorch # usually ~/anaconda3/envs/CenterNet/lib/python3.6/site-packages/
+    # for pytorch v0.4.0
+    sed -i "1194s/torch\.backends\.cudnn\.enabled/False/g" ${PYTORCH}/torch/nn/functional.py
+    # for pytorch v0.4.1
+    sed -i "1254s/torch\.backends\.cudnn\.enabled/False/g" ${PYTORCH}/torch/nn/functional.py
+    ~~~
+     
+    For other pytorch version, you can manually open `torch/nn/functional.py` and find the line with `torch.batch_norm` and replace the `torch.backends.cudnn.enabled` with `False`. We observed slight worse training results without doing so. 
+     
+3. Install [COCOAPI](https://github.com/cocodataset/cocoapi):
+
+    ~~~
+    COCOAPI=/path/to/clone/cocoapi
+    git clone https://github.com/cocodataset/cocoapi.git $COCOAPI
+    cd $COCOAPI/PythonAPI
+    make
+    python setup.py install --user
+    ~~~
+
+4. Clone this repo:
+
+    ~~~
+    CircleNet_ROOT=/path/to/clone/CircleNet
+    git clone https://github.com/hrlblab/CircleNet.git $CircleNet_ROOT
+    ~~~
+
+5. Install the requirements
+    
+    ~~~
+    pip install -r requirements.txt
+    ~~~ 
+    
+6. Compile deformable convolutional (from [DCNv2](https://github.com/CharlesShang/DCNv2/tree/pytorch_0.4)).
+
+    ~~~
+    cd $CircleNet_ROOT/src/lib/models/networks/DCNv2
+    ./make.sh
+    ~~~
+   
+4. Compile NMS.
+
+    ```
+    cd $CircleNet_ROOT/src/lib/external
+    make
+    ```
 
 
 ### Testing on a whole slide image
 The Case 03-1.scn file is avilable
 https://vanderbilt.box.com/s/s530m45rvk626xi1thwcdc2bhoea758r
 
-The model_10.pth model file is avilable (human kidney)
+The model_10.pth model file is available (human kidney)
 https://vumc.box.com/s/wpar2kz9600h9ao3wowjzc3y50znneop
 
 To run it on a testing scan, please go to "src" folder and run
