@@ -1,18 +1,27 @@
 # CircleNet: Anchor-free Detection with Circle Representation
-The official implementation of CircleNet, MICCAI 2020
-### [[PyTorch]](https://github.com/hrlblab/CircleNet) [[project page]](https://github.com/hrlblab/CircleNet)  [[MICCAI paper]](https://arxiv.org/pdf/2006.02474.pdf)
+The official implementation of CircleNet, MICCAI 2020, IEEE TMI 2021
+### [[PyTorch]](https://github.com/hrlblab/CircleNet) [[project page]](https://github.com/hrlblab/CircleNet)
 
-Object detection networks are powerful in computer vision, but not
-necessarily optimized for biomedical object detection. In this work, we propose
-CircleNet, a simple anchor-free detection method with circle representation for
-detection of the ball-shaped glomerulus. Different from the traditional bounding
-box based detection method, the bounding circle (1) reduces the degrees of freedom of detection representation, (2) is naturally rotation invariant, (3) and optimized for ball-shaped objects. 
+**Journal Paper**
+> [**Circle Representation for Medical Object Detection**](https://ieeexplore.ieee.org/document/9585500),                   
+> *IEEE Transactions on Medical Imaging ([10.1109/TMI.2021.3122835](https://ieeexplore.ieee.org/document/9585500))*; *arXiv ([arXiv:2110.12093](https://arxiv.org/abs/2110.12093))*
 
-full citation is
+**Conference Paper**
+> [**Circle Representation for Medical Object Detection**](https://link.springer.com/chapter/10.1007/978-3-030-59719-1_4),                 
+> *MICCAI 2020; *arXiv ([arXiv:2006.02474](https://arxiv.org/abs/2006.02474))*
 
-Haichun Yang, Ruining Deng, Yuzhe Lu, Zheyu Zhu, Ye Chen, Joseph T. Roland, Le Lu, Bennett A. Landman, Agnes B. Fogo, and Yuankai Huo. "CircleNet: Anchor-free Detection with Circle Representation." arXiv preprint arXiv:2006.02474 (2020).
+Contact: [ethan.h.nguyen@vanderbilt.edu](mailto:ethan.h.nguyen@vanderbilt.edu). Feel free to reach out with any questions or discussion!  
 
-### Envrioment Set up
+## Abstract
+Box representation has been extensively used for object detection in computer vision. Such representation is efficacious but not necessarily optimized for biomedical objects (e.g., glomeruli), which play an essential role in renal pathology. We propose a simple circle representation for medical object detection and introduce CircleNet, an anchor-free detection framework. Compared with the conventional bounding box representation, the proposed bounding circle representation innovates in three-fold: 
+
+(1) it is **optimized** for ball-shaped biomedical objects; 
+
+(2) The circle representation **reduced the degree of freedom** compared with box representation; 
+
+(3) It is naturally **more rotation invariant**. When detecting glomeruli and nuclei on pathological images, the proposed circle representation achieved superior detection performance and be more rotation-invariant, compared with the bounding box.
+
+## Envrioment Set up
 We used PyTorch 0.4.1. 
 
 The implementation is based on the [CenterNet](https://github.com/xingyizhou/CenterNet) project.
@@ -89,7 +98,7 @@ Please follow the instructions adapted from [here](https://github.com/xingyizhou
     ```
 
 
-### Testing on a whole slide image
+## Testing on a whole slide image
 The Case 03-1.scn file is avilable
 https://vanderbilt.box.com/s/s530m45rvk626xi1thwcdc2bhoea758r
 
@@ -108,10 +117,10 @@ Then you put the xml and scn files into the same folder, and open the scn file u
 
 <img src="https://github.com/yuankaihuo/temp/blob/master/screenshot.jpg" width="60%" /> 
 
-### A Google Colab demo of the above testing code is added 
+## A Google Colab demo of the above testing code is added 
 https://github.com/hrlblab/CircleNet/blob/master/src/circle_net_demo.ipynb
 
-### Run your own training code
+## Run your own training code
 The training code is
 ```
 python main.py circledet --exp_id kidpath_dla_batch4 --arch dla_34 --batch_size 4 --master_batch 4 --lr 2.5e-4   --gpus 0 --print_iter 1  --dataset kidpath --save_all --load_model ../models/ctdet_coco_dla_2x.pth
