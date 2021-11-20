@@ -1,5 +1,5 @@
 # CircleNet: Anchor-free Detection with Circle Representation
-The official implementation of CircleNet, MICCAI 2020, IEEE TMI 2021
+The official implementation of CircleNet, *MICCAI 2020*, *IEEE TMI 2021*
 ### [[PyTorch]](https://github.com/hrlblab/CircleNet) [[project page]](https://github.com/hrlblab/CircleNet)
 
 **Journal Paper**
