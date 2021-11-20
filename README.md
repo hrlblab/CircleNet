@@ -3,11 +3,13 @@ The official implementation of CircleNet, MICCAI 2020, IEEE TMI 2021
 ### [[PyTorch]](https://github.com/hrlblab/CircleNet) [[project page]](https://github.com/hrlblab/CircleNet)
 
 **Journal Paper**
-> [**Circle Representation for Medical Object Detection**](https://ieeexplore.ieee.org/document/9585500),                   
+> [**Circle Representation for Medical Object Detection**](https://ieeexplore.ieee.org/document/9585500),                 
+> Ethan H. Nguyen, Haichun Yang, Ruining Deng, Yuzhe Lu, Zheyu Zhu, Joseph T. Roland, Le Lu, Bennett A. Landman, Agnes B. Fogo, Yuankai Huo,                      
 > *IEEE Transactions on Medical Imaging ([10.1109/TMI.2021.3122835](https://ieeexplore.ieee.org/document/9585500))*; *arXiv ([arXiv:2110.12093](https://arxiv.org/abs/2110.12093))*
 
 **Conference Paper**
-> [**CircleNet: Anchor-free Detection with Circle Representation**](https://link.springer.com/chapter/10.1007/978-3-030-59719-1_4),                 
+> [**CircleNet: Anchor-free Detection with Circle Representation**](https://link.springer.com/chapter/10.1007/978-3-030-59719-1_4),          
+> Haichun Yang, Ruining Deng, Yuzhe Lu, Zheyu Zhu, Ye Chen, Joseph T. Roland, Le Lu, Bennett A. Landman, Agnes B. Fogo, Yuankai Huo                                
 > *MICCAI 2020*; *arXiv ([arXiv:2006.02474](https://arxiv.org/abs/2006.02474))*
 
 Contact: [ethan.h.nguyen@vanderbilt.edu](mailto:ethan.h.nguyen@vanderbilt.edu). Feel free to reach out with any questions or discussion!  
