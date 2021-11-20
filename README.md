@@ -8,7 +8,7 @@ The official implementation of CircleNet, MICCAI 2020, IEEE TMI 2021
 
 **Conference Paper**
 > [**CircleNet: Anchor-free Detection with Circle Representation**](https://link.springer.com/chapter/10.1007/978-3-030-59719-1_4),                 
-> *MICCAI 2020; *arXiv ([arXiv:2006.02474](https://arxiv.org/abs/2006.02474))*
+> *MICCAI 2020*; *arXiv ([arXiv:2006.02474](https://arxiv.org/abs/2006.02474))*
 
 Contact: [ethan.h.nguyen@vanderbilt.edu](mailto:ethan.h.nguyen@vanderbilt.edu). Feel free to reach out with any questions or discussion!  
 
