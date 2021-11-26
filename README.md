@@ -44,7 +44,7 @@ Please follow the instructions adapted from [here](https://github.com/xingyizhou
     conda activate CircleNet
     ~~~
 
-2. Install pytorch0.4.1:
+2. Install Pytorch 0.4.1:
 
     ~~~
     conda install pytorch=0.4.1 cuda92 torchvision -c pytorch
@@ -62,7 +62,12 @@ Please follow the instructions adapted from [here](https://github.com/xingyizhou
      
     For other pytorch version, you can manually open `torch/nn/functional.py` and find the line with `torch.batch_norm` and replace the `torch.backends.cudnn.enabled` with `False`. We observed slight worse training results without doing so. 
      
-3. Install [COCOAPI](https://github.com/cocodataset/cocoapi):
+3. Install the requirements
+    ~~~
+    pip install -r requirements.txt
+    ~~~ 
+
+4. Install [COCOAPI](https://github.com/cocodataset/cocoapi):
 
     ~~~
     COCOAPI=/path/to/clone/cocoapi
@@ -72,27 +77,23 @@ Please follow the instructions adapted from [here](https://github.com/xingyizhou
     python setup.py install --user
     ~~~
 
-4. Clone this repo:
+5. Clone this repo:
 
     ~~~
     CircleNet_ROOT=/path/to/clone/CircleNet
     git clone https://github.com/hrlblab/CircleNet.git $CircleNet_ROOT
     ~~~
 
-5. Install the requirements
-    
-    ~~~
-    pip install -r requirements.txt
-    ~~~ 
+
     
 6. Compile deformable convolutional (from [DCNv2](https://github.com/CharlesShang/DCNv2/tree/pytorch_0.4)).
 
     ~~~
-    cd $CircleNet_ROOT/src/lib/models/networks/DCNv2
+    cd $CircleNet_ROOT/src/lib/models/networks/DCNv2git 
     ./make.sh
     ~~~
    
-4. Compile NMS.
+7. Compile NMS.
 
     ```
     cd $CircleNet_ROOT/src/lib/external
