@@ -17,98 +17,31 @@ Contact: [ethan.h.nguyen@vanderbilt.edu](mailto:ethan.h.nguyen@vanderbilt.edu). 
 ## Abstract
 Box representation has been extensively used for object detection in computer vision. Such representation is efficacious but not necessarily optimized for biomedical objects (e.g., glomeruli), which play an essential role in renal pathology. We propose a simple circle representation for medical object detection and introduce CircleNet, an anchor-free detection framework. Compared with the conventional bounding box representation, the proposed bounding circle representation innovates in three-fold: 
 
-(1) it is **optimized** for ball-shaped biomedical objects; 
+(1) it is optimized for ball-shaped biomedical objects; 
 
-(2) The circle representation **reduced the degree of freedom** compared with box representation; 
+(2) The circle representation reduced the degree of freedom compared with box representation; 
 
-(3) It is naturally **more rotation invariant**. When detecting glomeruli and nuclei on pathological images, the proposed circle representation achieved superior detection performance and be more rotation-invariant, compared with the bounding box.
+(3) It is naturally more rotation invariant. When detecting glomeruli and nuclei on pathological images, the proposed circle representation achieved superior detection performance and be more rotation-invariant, compared with the bounding box.
 
-## Envrioment Set up
-We used PyTorch 0.4.1. 
+## Highlights 
 
-The implementation is based on the [CenterNet](https://github.com/xingyizhou/CenterNet) project.
+- **Simple:** One-sentence summary: Instead of the conventional bounding box, we propose using a bounding circle to detect ball-shaped biomedical objects.
 
+- **State-of-the-art:** On two datasets (glomeruli and nuclei), our CircleNet method outperforms baseline methods by over 10%.
 
-Please follow the instructions adapted from [here](https://github.com/xingyizhou/CenterNet/blob/master/readme/INSTALL.md) to set up the environment.
+- **Fast:** - Only requires a single network forward pass.
 
+## Installation
 
-1. [Optional but recommended] create a new conda environment. 
+Please refer to [INSTALL.md](readme/INSTALL.md) for installation instructions.
 
-    ~~~
-    conda create --name CircleNet python=3.6
-    ~~~
-    
-    And activate the environment.
-    
-    ~~~
-    conda activate CircleNet
-    ~~~
+## CircleNet - Whole Slide Image Demo
+The [Case 03-1.scn file](https://vanderbilt.box.com/s/s530m45rvk626xi1thwcdc2bhoea758r)
 
-2. Install Pytorch 0.4.1:
-
-    ~~~
-    conda install pytorch=0.4.1 cuda92 torchvision -c pytorch
-    ~~~
-    
-    And disable cudnn batch normalization(Due to [this issue](https://github.com/xingyizhou/pytorch-pose-hg-3d/issues/16)).
-    
-    ~~~
-    # PYTORCH=/path/to/pytorch # usually ~/anaconda3/envs/CenterNet/lib/python3.6/site-packages/
-    # for pytorch v0.4.0
-    sed -i "1194s/torch\.backends\.cudnn\.enabled/False/g" ${PYTORCH}/torch/nn/functional.py
-    # for pytorch v0.4.1
-    sed -i "1254s/torch\.backends\.cudnn\.enabled/False/g" ${PYTORCH}/torch/nn/functional.py
-    ~~~
-     
-    For other pytorch version, you can manually open `torch/nn/functional.py` and find the line with `torch.batch_norm` and replace the `torch.backends.cudnn.enabled` with `False`. We observed slight worse training results without doing so. 
-     
-3. Install the requirements
-    ~~~
-    pip install -r requirements.txt
-    ~~~ 
-
-4. Install [COCOAPI](https://github.com/cocodataset/cocoapi):
-
-    ~~~
-    COCOAPI=/path/to/clone/cocoapi
-    git clone https://github.com/cocodataset/cocoapi.git $COCOAPI
-    cd $COCOAPI/PythonAPI
-    make
-    python setup.py install --user
-    ~~~
-
-5. Clone this repo:
-
-    ~~~
-    CircleNet_ROOT=/path/to/clone/CircleNet
-    git clone https://github.com/hrlblab/CircleNet.git $CircleNet_ROOT
-    ~~~
-
-
-    
-6. Compile deformable convolutional (from [DCNv2](https://github.com/CharlesShang/DCNv2/tree/pytorch_0.4)).
-
-    ~~~
-    cd $CircleNet_ROOT/src/lib/models/networks/DCNv2git 
-    ./make.sh
-    ~~~
-   
-7. Compile NMS.
-
-    ```
-    cd $CircleNet_ROOT/src/lib/external
-    make
-    ```
-
-
-## Testing on a whole slide image
-The Case 03-1.scn file is avilable
-https://vanderbilt.box.com/s/s530m45rvk626xi1thwcdc2bhoea758r
-
-The model_10.pth model file is available (human kidney)
-https://vumc.box.com/s/wpar2kz9600h9ao3wowjzc3y50znneop
+The [model_10.pth model file](https://vumc.box.com/s/wpar2kz9600h9ao3wowjzc3y50znneop) is available (human kidney)
 
 To run it on a testing scan, please go to "src" folder and run
+
 ```
 python run_detection_for_scn.py circledet --arch dla_34 --demo "/media/huoy1/48EAE4F7EAE4E264/Projects/from_haichun/batch_1_data/scn/Case 03-1.scn" --load_model /media/huoy1/48EAE4F7EAE4E264/Projects/detection/CircleNet/exp/circledet/kidpath_dla_batch4/model_10.pth --filter_boarder --demo_dir "/media/huoy1/48EAE4F7EAE4E264/Projects/detection/test_demo"
 ```
@@ -120,14 +53,30 @@ Then you put the xml and scn files into the same folder, and open the scn file u
 
 <img src="https://github.com/yuankaihuo/temp/blob/master/screenshot.jpg" width="60%" /> 
 
-## A Google Colab demo of the above testing code is added 
-https://github.com/hrlblab/CircleNet/blob/master/src/circle_net_demo.ipynb
+A Google Colab version of above can be found [here](https://github.com/hrlblab/CircleNet/blob/master/src/circle_net_demo.ipynb).
 
-## Run your own training code
-The training code is
-```
-python main.py circledet --exp_id kidpath_dla_batch4 --arch dla_34 --batch_size 4 --master_batch 4 --lr 2.5e-4   --gpus 0 --print_iter 1  --dataset kidpath --save_all --load_model ../models/ctdet_coco_dla_2x.pth
-```
+## Benchmark Evaluation and Training
 
-You can get the ctdet_coco_dla_2x.pth model from model zoo
-https://github.com/xingyizhou/CenterNet/blob/master/readme/MODEL_ZOO.md
+After [installation](readme/INSTALL.md), follow the instructions in [DATA.md](readme/DATA.md) to setup the datasets. Then check [GETTING_STARTED.md](readme/GETTING_STARTED.md) to reproduce the results in the paper.
+We provide scripts for all the experiments in the [experiments](experiments) folder.
+
+## Develop
+
+If you are interested in training CircleNet in a new dataset, use CircleNet in a new task, or use a new network architecture for CircleNet please refer to [DEVELOP.md](readme/DEVELOP.md). Also feel free to send us emails for discussions or suggestions.
+
+## License
+
+CircleNet itself is released under the MIT License (refer to the LICENSE file for details).
+Parts of code and documentation are borrowed from [CenterNet](https://github.com/xingyizhou/CenterNet).
+We thank them for their elegant implementation.
+
+## Citation
+If you find this project useful for your research, please use the following BibTeX entry.
+
+    @article{nguyen2021circle,
+      title={Circle Representation for Medical Object Detection},
+      author={Nguyen, Ethan H and Yang, Haichun and Deng, Ruining and Lu, Yuzhe and Zhu, Zheyu and Roland, Joseph T and Lu, Le and Landman, Bennett A and Fogo, Agnes B and Huo, Yuankai},
+      journal={IEEE Transactions on Medical Imaging},
+      year={2021},
+      publisher={IEEE}
+    }
