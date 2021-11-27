@@ -1,0 +1,14 @@
+# Dependency Libraries
+src/lib/models/networks/DCNv2/*
+src/lib/external/
+cocoapi/*
+
+# Cache
+__pycache__/
+.idea/*
+
+# Models / Data / Experiments
+*.pth
+models/*
+data/*
+exp/*
