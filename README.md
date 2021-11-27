@@ -36,9 +36,11 @@ Box representation has been extensively used for object detection in computer vi
 Please refer to [INSTALL.md](readme/INSTALL.md) for installation instructions.
 
 ## CircleNet - Whole Slide Image Demo
-The [Case 03-1.scn file](https://vanderbilt.box.com/s/s530m45rvk626xi1thwcdc2bhoea758r)
+Please download the following two files:
 
-The [model_10.pth model file](https://vumc.box.com/s/wpar2kz9600h9ao3wowjzc3y50znneop) is available (human kidney)
+1. [Human Kidney WSI](https://vanderbilt.box.com/s/s530m45rvk626xi1thwcdc2bhoea758r)
+
+2. [Human Kidney Model](https://vumc.box.com/s/wpar2kz9600h9ao3wowjzc3y50znneop)
 
 To run it on a testing scan, please go to "src" folder and run
 
@@ -48,12 +50,12 @@ python run_detection_for_scn.py circledet --arch dla_34 --demo "/media/huoy1/48E
 
 The demo_dir is output dir, which you set anywhere in your computer.
 
-After running code, you will see a Case 03-1.xml file.
-Then you put the xml and scn files into the same folder, and open the scn file using ImageScope software (only avilable in Windows OS), you can see something like the following image, with green detection results.
+After running code, you will see a 'Case 03-1.xml' file.
+Then you put the xml and scn files into the same folder, and open the scn file using [ImageScope software](https://www.leicabiosystems.com/digital-pathology/manage/aperio-imagescope/) (only avilable in Windows OS), you can see something like the following image, with green detection results.
 
 <img src="https://github.com/yuankaihuo/temp/blob/master/screenshot.jpg" width="60%" /> 
 
-A Google Colab version of above can be found [here](https://github.com/hrlblab/CircleNet/blob/master/src/circle_net_demo.ipynb).
+A Google Colab notebook of above can be found [here](https://github.com/hrlblab/CircleNet/blob/master/src/circle_net_demo.ipynb).
 
 ## Benchmark Evaluation and Training
 
