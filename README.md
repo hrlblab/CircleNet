@@ -29,7 +29,7 @@ Box representation has been extensively used for object detection in computer vi
 
 - **State-of-the-art:** On two datasets (glomeruli and nuclei), our CircleNet method outperforms baseline methods by over 10%.
 
-- **Fast:** - Only requires a single network forward pass.
+- **Fast:** Only requires a single network forward pass.
 
 ## Installation
 
