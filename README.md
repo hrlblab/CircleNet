@@ -36,8 +36,6 @@ Box representation has been extensively used for object detection in computer vi
 Please refer to [INSTALL.md](readme/INSTALL.md) for installation instructions.
 
 ## CircleNet - Whole Slide Image Demo
-A Google Colab notebook of below can be found [here](https://githubtocolab.com/hrlblab/CircleNet/blob/master/src/circle_net_demo.ipynb).
-
 Please download the following two files:
 
 1. [Human Kidney WSI](https://vanderbilt.box.com/s/s530m45rvk626xi1thwcdc2bhoea758r)
@@ -57,6 +55,8 @@ After running code, you will see a 'Case 03-1.xml' file.
 Then you put the xml and scn files into the same folder, and open the scn file using [ImageScope software](https://www.leicabiosystems.com/digital-pathology/manage/aperio-imagescope/) (only avilable in Windows OS), you can see something like the following image, with green detection results.
 
 <img src="https://github.com/yuankaihuo/temp/blob/master/screenshot.jpg" width="60%" /> 
+
+Above can also be run in [Google Colab](https://colab.research.google.com/github/hrlblab/CircleNet/blob/master/src/circle_net_demo.ipynb).
 
 ## Benchmark Evaluation and Training
 
