@@ -56,7 +56,7 @@ Then you put the xml and scn files into the same folder, and open the scn file u
 
 <img src="https://github.com/yuankaihuo/temp/blob/master/screenshot.jpg" width="60%" /> 
 
-A Google Colab notebook of above can be found [here](https://github.com/hrlblab/CircleNet/blob/master/src/circle_net_demo.ipynb).
+A Google Colab notebook of above can be found [here](https://githubtocolab.com/hrlblab/CircleNet/blob/master/src/circle_net_demo.ipynb).
 
 ## Benchmark Evaluation and Training
 
