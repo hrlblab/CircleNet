@@ -1,7 +1,8 @@
 # CircleNet: Anchor-free Detection with Circle Representation
 The official implementation of CircleNet, *MICCAI 2020*, *IEEE TMI 2021*
-### [[PyTorch]](https://github.com/hrlblab/CircleNet) [[project page]](https://github.com/hrlblab/CircleNet)
+
 ![](readme/fig1.png)
+
 **Journal Paper**
 > [**Circle Representation for Medical Object Detection**](https://ieeexplore.ieee.org/document/9585500),                 
 > Ethan H. Nguyen, Haichun Yang, Ruining Deng, Yuzhe Lu, Zheyu Zhu, Joseph T. Roland, Le Lu, Bennett A. Landman, Agnes B. Fogo, Yuankai Huo,                      
