@@ -12,7 +12,7 @@ First, download the models you want to evaluate from our [model zoo](MODEL_ZOO.m
 To evaluate MoNuSeg object detection with HG, run
 
 ~~~
-exp_id CircleNet_HG_Reproduce --arch hourglass --batch_size 4 --master_batch 4 --lr 2.5e-4 --dataset monuseg --load_model ../models/circledet_monuseg_hg.pth --test --ontestdata --debug 4
+python main.py circledet exp_id CircleNet_HG_Reproduce --arch hourglass --batch_size 4 --master_batch 4 --lr 2.5e-4 --dataset monuseg --load_model ../models/circledet_monuseg_hg.pth --test --ontestdata --debug 4
 ~~~
 
 This will give an AP of `48.7` if setup correctly. 
