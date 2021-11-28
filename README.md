@@ -41,7 +41,7 @@ CircleNet can easily be run on a single image or a folder of images.
 
 First, download the models (By default, [circledet_monuseg_hg](https://vanderbilt.box.com/s/is6rg9888idgmgtr59890mbgs5sv56ph) ) from [Model Zoo](docs/MODEL_ZOO.md) and put them in `CircleNet_Root/models`
 
-We provide an example image from [MoNuSeg 2018](https://monuseg.grand-challenge.org/). 
+We provide an example image from [MoNuSeg 2018](https://monuseg.grand-challenge.org/) in docs. 
 
 <img src='docs/demo.png' align="center" height="230px"> 
 
@@ -55,7 +55,7 @@ If set up correctly, the output should look like
 
 <img src='docs/demoDetect.png' align="center" height="230px">
 
-To use this CircleNet in your own project, you can 
+To use CircleNet in your own project, you can 
 
 ~~~
 import sys
