@@ -84,7 +84,7 @@ Please download the following two files:
 
 2. [Human Kidney Model](https://vumc.box.com/s/wpar2kz9600h9ao3wowjzc3y50znneop)
 
-To run it on a testing scan, please go to "src" folder and run
+To run it on a testing scan, please go to `src` folder and run
 
 ```
 sudo apt install python-openslide
