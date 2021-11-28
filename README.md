@@ -55,6 +55,26 @@ If set up correctly, the output should look like
 
 <img src='docs/demoDetect.png' align="center" height="230px">
 
+To use this CircleNet in your own project, you can 
+
+~~~
+import sys
+CIRCLENET_PATH = /path/to/CircleNet/src/lib/
+sys.path.insert(0, CIRCLENET_PATH)
+
+from detectors.detector_factory import detector_factory
+from opts import opts
+
+MODEL_PATH = /path/to/model
+TASK = 'circledet'
+opt = opts().init('{} --load_model {}'.format(TASK, MODEL_PATH).split(' '))
+detector = detector_factory[opt.task](opt)
+
+img = image/or/path/to/your/image(s)/
+ret = detector.run(img)['results']
+~~~
+`ret` will be a Python list: `[x, y, radius, confidence, category]`
+
 ## CircleNet - Whole Slide Image Demo
 CircleNet can also be run on Whole Slide Images in *.scn file format.
 
