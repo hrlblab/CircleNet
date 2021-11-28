@@ -10,9 +10,9 @@ class opts(object):
   def __init__(self):
     self.parser = argparse.ArgumentParser()
     # basic experiment setting
-    self.parser.add_argument('task', default='ctdet',
+    self.parser.add_argument('task', default='circledet',
                              help='ctdet | ddd | multi_pose | exdet | circledet')
-    self.parser.add_argument('--dataset', default='coco',
+    self.parser.add_argument('--dataset', default='monuseg',
                              help='coco | kitti | coco_hp | pascal | kidpath | monuseg')
     self.parser.add_argument('--exp_id', default='default')
     self.parser.add_argument('--test', action='store_true')
@@ -64,7 +64,7 @@ class opts(object):
                              help='main metric to save best model')
     self.parser.add_argument('--vis_thresh', type=float, default=0.2,
                              help='visualization threshold.')
-    self.parser.add_argument('--debugger_theme', default='white', 
+    self.parser.add_argument('--debugger_theme', default='white',
                              choices=['white', 'black'])
     
     # model
@@ -358,9 +358,9 @@ class opts(object):
       'ctdet': {'default_resolution': [512, 512], 'num_classes': 80, 
                 'mean': [0.408, 0.447, 0.470], 'std': [0.289, 0.274, 0.278],
                 'dataset': 'coco'},
-      'circledet': {'default_resolution': [512, 512], 'num_classes': 12,
+      'circledet': {'default_resolution': [512, 512], 'num_classes': 1,
                   'mean': [0.408, 0.447, 0.470], 'std': [0.289, 0.274, 0.278],
-                  'dataset': 'nucls'},
+                  'dataset': 'monuseg'},
       'exdet': {'default_resolution': [512, 512], 'num_classes': 80, 
                 'mean': [0.408, 0.447, 0.470], 'std': [0.289, 0.274, 0.278],
                 'dataset': 'coco'},

@@ -84,7 +84,7 @@ class CircledetDetector(BaseDetector):
                                  detection[i, k, 4],
                                  img_id='out_pred_{:.1f}'.format(scale))
 
-  def show_results(self, debugger, image, results, name):
+  def show_results(self, debugger, image, results, name="demo"):
 
     if self.opt.filter_boarder:
       output_h = self.opt.input_h  # hard coded
@@ -108,5 +108,5 @@ class CircledetDetector(BaseDetector):
         if circle[3] > self.opt.vis_thresh:
           debugger.add_coco_circle(circle[:3], circle[-1],
                                    circle[3], img_id=os.path.basename(name.split('.')[0]))
-    debugger.save_all_imgs(path='/home/sybbure/CircleNet/CircleNet/data/monuseg (copy)/monuseg overlay') # hard code
-    # debugger.show_all_imgs(pause=self.pause)
+    debugger.show_all_imgs(pause=self.pause)
+

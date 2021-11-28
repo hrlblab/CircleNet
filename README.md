@@ -29,7 +29,7 @@ Box representation has been extensively used for object detection in computer vi
 
 - **State-of-the-art:** On two datasets (glomeruli and nuclei), our CircleNet method outperforms baseline methods by over 10%.
 
-- **Fast:** - Only requires a single network forward pass.
+- **Fast:** Only requires a single network forward pass.
 
 ## Installation
 
@@ -57,20 +57,23 @@ If set up correctly, the output should look like
 ## CircleNet - Whole Slide Image Demo
 CircleNet can also be run on Whole Slide Images in *.scn file format.
 
-The [Case 03-1.scn file](https://vanderbilt.box.com/s/s530m45rvk626xi1thwcdc2bhoea758r)
+Please download the following two files:
 
-The [model_10.pth model file](https://vumc.box.com/s/wpar2kz9600h9ao3wowjzc3y50znneop) is available (human kidney)
+1. [Human Kidney WSI](https://vanderbilt.box.com/s/s530m45rvk626xi1thwcdc2bhoea758r)
+
+2. [Human Kidney Model](https://vumc.box.com/s/wpar2kz9600h9ao3wowjzc3y50znneop)
 
 To run it on a testing scan, please go to "src" folder and run
 
 ```
+sudo apt install python-openslide
 python run_detection_for_scn.py circledet --arch dla_34 --demo "/media/huoy1/48EAE4F7EAE4E264/Projects/from_haichun/batch_1_data/scn/Case 03-1.scn" --load_model /media/huoy1/48EAE4F7EAE4E264/Projects/detection/CircleNet/exp/circledet/kidpath_dla_batch4/model_10.pth --filter_boarder --demo_dir "/media/huoy1/48EAE4F7EAE4E264/Projects/detection/test_demo"
 ```
 
 The demo_dir is output dir, which you set anywhere in your computer.
 
-After running code, you will see a Case 03-1.xml file.
-Then you put the xml and scn files into the same folder, and open the scn file using ImageScope software (only avilable in Windows OS), you can see something like the following image, with green detection results.
+After running code, you will see a 'Case 03-1.xml' file.
+Then you put the xml and scn files into the same folder, and open the scn file using [ImageScope software](https://www.leicabiosystems.com/digital-pathology/manage/aperio-imagescope/) (only avilable in Windows OS), you can see something like the following image, with green detection results.
 
 <img src="https://github.com/yuankaihuo/temp/blob/master/screenshot.jpg" width="60%" /> 
 

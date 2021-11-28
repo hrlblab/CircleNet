@@ -1,10 +1,8 @@
 ## Installation
 
-We used PyTorch 0.4.1 on Ubuntu 18.04 LTS with [Anaconda](https://www.anaconda.com/download) Python 3.6.
+We used PyTorch 0.4.1 on [Ubuntu 18.04 LTS](https://releases.ubuntu.com/18.04/) with [Anaconda](https://www.anaconda.com/download) Python 3.6.
 
-The implementation and instructions are based on the [CenterNet](https://github.com/xingyizhou/CenterNet) project.
-
-1. [Optional but recommended] create a new conda environment. 
+1. [Optional but recommended] Create a new Conda environment. 
 
     ~~~
     conda create --name CircleNet python=3.6
@@ -56,8 +54,6 @@ The implementation and instructions are based on the [CenterNet](https://github.
     git clone https://github.com/hrlblab/CircleNet.git $CircleNet_ROOT
     ~~~
 
-
-    
 6. Compile deformable convolutional (from [DCNv2](https://github.com/CharlesShang/DCNv2/tree/pytorch_0.4)).
 
     ~~~

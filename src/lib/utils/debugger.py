@@ -9,7 +9,7 @@ import json
 from .ddd_utils import compute_box_3d, project_to_image, draw_box_3d
 
 class Debugger(object):
-  def __init__(self, ipynb=False, theme='black', 
+  def __init__(self, ipynb=False, theme='black',
                num_classes=-1, dataset=None, down_ratio=4):
     self.ipynb = ipynb
     if not self.ipynb:
@@ -199,14 +199,15 @@ class Debugger(object):
     #   cv2.putText(self.imgs[img_id], txt, (bbox[0], bbox[1] - 2),
     #               font, 0.5, (0, 0, 0), thickness=1, lineType=cv2.LINE_AA)
 
-  def add_coco_circle(self, circle, cat=0, conf=1, show_txt=True, img_id='default'):
+  def add_coco_circle(self, circle, cat=0, conf=1, show_txt=False, img_id='default'):
     circle = np.array(circle, dtype=np.int32)
     # cat = (int(cat) + 1) % 80
     cat = int(cat)
     # print('cat', cat, self.names[cat])
-    c = self.colors[cat][0][0].tolist()
-    if self.theme == 'white':
-      c = (255 - np.array(c)).tolist()
+    # c = self.colors[cat][0][0].tolist()
+    # if self.theme == 'white':
+    #   c = (255 - np.array(c)).tolist()
+    c = (0, 255, 0)
     # c = (0, 255, 0)  # hardcode to green
     txt = '{}{:.1f}'.format(self.names[cat], conf)
     font = cv2.FONT_HERSHEY_SIMPLEX
