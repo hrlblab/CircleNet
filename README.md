@@ -73,7 +73,7 @@ detector = detector_factory[opt.task](opt)
 img = image/or/path/to/your/image(s)/
 ret = detector.run(img)['results']
 ~~~
-`ret` will be a Python list: `[x, y, radius, confidence, category]`
+`ret` will be a Python list where each item describes a circle detection: `[x, y, radius, confidence, category]`
 
 ## CircleNet - Whole Slide Image Demo
 CircleNet can also be run on Whole Slide Images in *.scn file format.
