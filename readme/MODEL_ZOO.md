@@ -2,9 +2,8 @@
 
 ### Common settings and notes
 
-- The experiments are run with pytorch 0.4.1, CUDA 9.0, and CUDNN 7.1.
-- Models were trained using a Nvidia 1080 Ti (11 GB).
-- The models can be downloaded directly from [Box](https://drive.google.com/open?id=1px-Xg7jXSC79QqgsD1AAGJQkuf5m0zh_).
+- The experiments are run with an Nvidia 1080 Ti (11 GB), PyTorch 0.4.1, CUDA 9.0, and CUDNN 7.1.
+- The models can be downloaded directly from [Box](https://vanderbilt.box.com/s/8yg0a1ms87c5ox0odqq6534q1ztycsgh).
 
 ## Object Detection
 
