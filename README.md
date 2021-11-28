@@ -43,17 +43,17 @@ First, download the models (By default, [circledet_monuseg_hg](https://vanderbil
 
 We provide an example image from [MoNuSeg 2018](https://monuseg.grand-challenge.org/). 
 
-<img src='readme/demo.png' align="center" height="230px"> 
+<img src='docs/demo.png' align="center" height="230px"> 
 
 For nuclei detection, run 
 
 ```
-python demo.py circledet --arch hourglass --demo ../readme/demo.png --load_model ../models/circledet_monuseg_hg.pth
+python demo.py circledet --arch hourglass --demo ../docs/demo.png --load_model ../models/circledet_monuseg_hg.pth
 ```
 
 If set up correctly, the output should look like
 
-<img src='readme/demoDetect.png' align="center" height="230px">
+<img src='docs/demoDetect.png' align="center" height="230px">
 
 ## CircleNet - Whole Slide Image Demo
 CircleNet can also be run on Whole Slide Images in *.scn file format.
