@@ -1,7 +1,7 @@
 # CircleNet: Anchor-free Detection with Circle Representation
 The official implementation of CircleNet, *MICCAI 2020*, *IEEE TMI 2021*
 
-![](readme/fig1.png)
+![](docs/fig1.png)
 
 **Journal Paper**
 > [**Circle Representation for Medical Object Detection**](https://ieeexplore.ieee.org/document/9585500),                 
@@ -34,12 +34,12 @@ Box representation has been extensively used for object detection in computer vi
 
 ## Installation
 
-Please refer to [INSTALL.md](readme/INSTALL.md) for installation instructions.
+Please refer to [INSTALL.md](docs/INSTALL.md) for installation instructions.
 
 ## CircleNet - Image Demo
 CircleNet can easily be run on a single image or a folder of images.
 
-First, download the models (By default, [circledet_monuseg_hg](https://vanderbilt.box.com/s/is6rg9888idgmgtr59890mbgs5sv56ph) ) from [Model Zoo](readme/MODEL_ZOO.md) and put them in `CircleNet_Root/models`
+First, download the models (By default, [circledet_monuseg_hg](https://vanderbilt.box.com/s/is6rg9888idgmgtr59890mbgs5sv56ph) ) from [Model Zoo](docs/MODEL_ZOO.md) and put them in `CircleNet_Root/models`
 
 We provide an example image from [MoNuSeg 2018](https://monuseg.grand-challenge.org/). 
 
@@ -82,12 +82,12 @@ A Google Colab version of above can be found [here](https://github.com/hrlblab/C
 
 ## Benchmark Evaluation and Training
 
-After [installation](readme/INSTALL.md), follow the instructions in [DATA.md](readme/DATA.md) to setup the datasets. Then check [GETTING_STARTED.md](readme/GETTING_STARTED.md) to reproduce the results in the paper.
+After [installation](docs/INSTALL.md), follow the instructions in [DATA.md](docs/DATA.md) to setup the datasets. Then check [GETTING_STARTED.md](docs/GETTING_STARTED.md) to reproduce the results in the paper.
 We provide scripts for all the experiments in the [experiments](experiments) folder.
 
 ## Develop
 
-If you are interested in training CircleNet in a new dataset, use CircleNet in a new task, or use a new network architecture for CircleNet please refer to [DEVELOP.md](readme/DEVELOP.md). Also feel free to send us emails for discussions or suggestions.
+If you are interested in training CircleNet in a new dataset, use CircleNet in a new task, or use a new network architecture for CircleNet please refer to [DEVELOP.md](docs/DEVELOP.md). Also feel free to send us emails for discussions or suggestions.
 
 ## License
 
