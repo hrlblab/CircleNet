@@ -35,7 +35,28 @@ Box representation has been extensively used for object detection in computer vi
 
 Please refer to [INSTALL.md](readme/INSTALL.md) for installation instructions.
 
+## CircleNet - Image Demo
+CircleNet can easily be run on a single image or a folder of images.
+
+First, download the models (By default,[circledet_monuseg_hg](https://vanderbilt.box.com/s/is6rg9888idgmgtr59890mbgs5sv56ph) ) from [Model zoo](readme/MODEL_ZOO.md) and put them in 'CircleNet_Root/models'
+
+We provide an example image from [MoNuSeg 2018](https://monuseg.grand-challenge.org/). 
+
+<p align="center"> <img src='readme/demo.png' align="center" height="230px"> 
+
+For nuclei detection, run 
+
+```
+python demo.py circledet --arch hourglass --demo ../readme/demo.png --load_model ../models/circledet_monuseg_hg.pth
+```
+
+If set up correctly, the output should look like
+
+<img src='readme/demoDetect.png' align="center" height="230px"> </p>
+
 ## CircleNet - Whole Slide Image Demo
+CircleNet can also be run on Whole Slide Images in *.scn file format.
+
 The [Case 03-1.scn file](https://vanderbilt.box.com/s/s530m45rvk626xi1thwcdc2bhoea758r)
 
 The [model_10.pth model file](https://vumc.box.com/s/wpar2kz9600h9ao3wowjzc3y50znneop) is available (human kidney)
