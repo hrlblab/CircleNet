@@ -1,4 +1,4 @@
-# CircleNet: Anchor-free Detection with Circle Representation
+# CircleNet: Anchor-free Medical Object Detection with Circle Representation
 The official implementation of CircleNet, *MICCAI 2020*, *IEEE TMI 2021*
 
 ![](docs/fig1.png)
