@@ -38,11 +38,11 @@ Please refer to [INSTALL.md](readme/INSTALL.md) for installation instructions.
 ## CircleNet - Image Demo
 CircleNet can easily be run on a single image or a folder of images.
 
-First, download the models (By default,[circledet_monuseg_hg](https://vanderbilt.box.com/s/is6rg9888idgmgtr59890mbgs5sv56ph) ) from [Model zoo](readme/MODEL_ZOO.md) and put them in 'CircleNet_Root/models'
+First, download the models (By default, [circledet_monuseg_hg](https://vanderbilt.box.com/s/is6rg9888idgmgtr59890mbgs5sv56ph) ) from [Model Zoo](readme/MODEL_ZOO.md) and put them in `CircleNet_Root/models`
 
 We provide an example image from [MoNuSeg 2018](https://monuseg.grand-challenge.org/). 
 
-<p align="center"> <img src='readme/demo.png' align="center" height="230px"> 
+<img src='readme/demo.png' align="center" height="230px"> 
 
 For nuclei detection, run 
 
@@ -52,7 +52,7 @@ python demo.py circledet --arch hourglass --demo ../readme/demo.png --load_model
 
 If set up correctly, the output should look like
 
-<img src='readme/demoDetect.png' align="center" height="230px"> </p>
+<img src='readme/demoDetect.png' align="center" height="230px">
 
 ## CircleNet - Whole Slide Image Demo
 CircleNet can also be run on Whole Slide Images in *.scn file format.
@@ -72,8 +72,8 @@ python run_detection_for_scn.py circledet --arch dla_34 --demo "/media/huoy1/48E
 
 The demo_dir is output dir, which you set anywhere in your computer.
 
-After running code, you will see a 'Case 03-1.xml' file.
-Then you put the xml and scn files into the same folder, and open the scn file using [ImageScope software](https://www.leicabiosystems.com/digital-pathology/manage/aperio-imagescope/) (only avilable in Windows OS), you can see something like the following image, with green detection results.
+After running the code, you will see a `Case 03-1.xml` file.
+Put the xml and scn files into the same folder, and open the scn file using [ImageScope software](https://www.leicabiosystems.com/digital-pathology/manage/aperio-imagescope/) (only avilable in Windows OS). You should see something like the following image, with green detection results.
 
 <img src="https://github.com/yuankaihuo/temp/blob/master/screenshot.jpg" width="60%" /> 
 
