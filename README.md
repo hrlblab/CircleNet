@@ -80,7 +80,7 @@ CircleNet can also be run on Whole Slide Images in *.scn file format.
 
 Please download the following two files:
 
-1. [Human Kidney WSI](https://vanderbilt.box.com/s/s530m45rvk626xi1thwcdc2bhoea758r)
+1. [Human Kidney WSI (case 03-1.scn)](https://vanderbilt.box.com/s/s530m45rvk626xi1thwcdc2bhoea758r)
 
 2. [Human Kidney Model](https://vumc.box.com/s/wpar2kz9600h9ao3wowjzc3y50znneop)
 
