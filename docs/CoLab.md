@@ -1,6 +1,6 @@
 Here are the issues in the CoLab and how to fix
 
-Problem 1: 
+## Problem 1: 
 ```
 !sudo apt remove gcc gcc-7 g++ g++-7
 !sudo apt install gcc-6 g++-6
@@ -13,7 +13,7 @@ Solution of Problem 1:
 2.	Add !sudo apt update as a code cell before you install gcc6
 
 
-Problem 2:
+## Problem 2:
 ```
 # !sed -i "1254s/torch\.backends\.cudnn\.enabled/False/g" /usr/local/lib/python3.7/dist-packages/torch/nn/functional.py 
 ```
@@ -24,7 +24,7 @@ Note:
 !git clone https://github.com/cocodataset/cocoapi.git 
 For the first time you run the colab, you should remove the # and actually clone the file into your Google Drive 
 
-Problem 3: 
+## Problem 3: 
 ```
 cd /content/drive/My Drive/COCOAPI/PythonAPI
 ```
@@ -33,7 +33,7 @@ Solution: Change to
 cd /content/drive/My Drive/COCOAPI/cocoapi/PythonAPI
 ```
 
-Problem 4: 
+## Problem 4: 
 Between 
 ```
 cd /content/drive/My Drive/COCOAPI/cocoapi/PythonAPI
@@ -47,7 +47,7 @@ add
 !pip install cython pycocotools
 ```
 
-Problem 5:
+## Problem 5:
 Between 
 ```
 %cd /content/drive/My\ Drive/CircleNet/src 
