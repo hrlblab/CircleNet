@@ -1,8 +1,10 @@
 Here are the issues in the CoLab and how to fix
 
 Problem 1: 
+```
 !sudo apt remove gcc gcc-7 g++ g++-7
 !sudo apt install gcc-6 g++-6
+```
 This command is outdated as gcc6 is no longer supported on the current version 
 
 Solution of Problem 1: 
@@ -12,7 +14,9 @@ Solution of Problem 1:
 
 
 Problem 2:
-!sed -i "1254s/torch\.backends\.cudnn\.enabled/False/g" /usr/local/lib/python3.7/dist-packages/torch/nn/functional.py 
+```
+# !sed -i "1254s/torch\.backends\.cudnn\.enabled/False/g" /usr/local/lib/python3.7/dist-packages/torch/nn/functional.py 
+```
 
 Solution: Change 3.7 to 3.10
 
@@ -30,8 +34,18 @@ Between cd /content/drive/My Drive/COCOAPI/cocoapi/PythonAPI and !make, add !pip
 
 
 Problem 5:
-Between %cd /content/drive/My\ Drive/CircleNet/src and !python run_detection_for_scn.py circledet --arch dla_34 --demo "/content/drive/My Drive/CircleNet/example_case/Case 03-1.s, add !pip install Pillow==6.2
-
+Between 
+```
+%cd /content/drive/My\ Drive/CircleNet/src 
+```
+and 
+```
+!python run_detection_for_scn.py circledet --arch dla_34 --demo "/content/drive/My Drive/CircleNet/example_case/Case 03-1.s
+```
+add 
+```
+!pip install Pillow==6.2
+```
 Note: 
 In your Google Drive, 
 1.	Download (clone) the CircleNet file under My Drive (similar to what we do to COCOAPI)
