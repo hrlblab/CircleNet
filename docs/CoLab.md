@@ -16,7 +16,7 @@ Problem 2:
 Solution: Change 3.7 to 3.10
 
 Note: 
-# !git clone https://github.com/cocodataset/cocoapi.git 
+!git clone https://github.com/cocodataset/cocoapi.git 
 For the first time you run the colab, you should remove the # and actually clone the file into your Google Drive 
 
 Problem 3: 
