@@ -6,6 +6,7 @@ Problem 1:
 This command is outdated as gcc6 is no longer supported on the current version 
 
 Solution of Problem 1: 
+![](docs/sourcelist.jpg.png)
 1. Go to sources.list, Add (deb http://dk.archive.ubuntu.com/ubuntu/ bionic main universe) at the end of the file, Hit command+s (Mac) to save the changes
 2.	Add !sudo apt update as a code cell before you install gcc6
 
