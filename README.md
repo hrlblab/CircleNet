@@ -98,8 +98,7 @@ Put the xml and scn files into the same folder, and open the scn file using [Ima
 
 <img src="https://github.com/yuankaihuo/temp/blob/master/screenshot.jpg" width="60%" /> 
 
-A Google Colab version of above can be found [here](https://github.com/hrlblab/CircleNet/blob/master/src/circle_net_demo.ipynb).
-
+A Google Colab version of above can be found [here](https://github.com/hrlblab/CircleNet/blob/master/src/circle_net_demo.ipynb), here are some bugs you might see [here](https://github.com/hrlblab/CircleNet/blob/master/docs/CoLab.md).
 ## Benchmark Evaluation and Training
 
 After [installation](docs/INSTALL.md), follow the instructions in [DATA.md](docs/DATA.md) to setup the datasets. Then check [GETTING_STARTED.md](docs/GETTING_STARTED.md) to reproduce the results in the paper.
