@@ -25,13 +25,27 @@ Note:
 For the first time you run the colab, you should remove the # and actually clone the file into your Google Drive 
 
 Problem 3: 
+```
 cd /content/drive/My Drive/COCOAPI/PythonAPI
-
-Solution: Change to cd /content/drive/My Drive/COCOAPI/cocoapi/PythonAPI
+```
+Solution: Change to 
+```
+cd /content/drive/My Drive/COCOAPI/cocoapi/PythonAPI
+```
 
 Problem 4: 
-Between cd /content/drive/My Drive/COCOAPI/cocoapi/PythonAPI and !make, add !pip install cython pycocotools
-
+Between 
+```
+cd /content/drive/My Drive/COCOAPI/cocoapi/PythonAPI
+```
+and 
+```
+!make 
+```
+add 
+```
+!pip install cython pycocotools
+```
 
 Problem 5:
 Between 
@@ -53,7 +67,10 @@ In your Google Drive,
 a.	My Drive/CircleNet/example_case/Case 03-1.scn
 b.	My\ Drive/CircleNet/trained_model/model_10.pth
 
-If you have trouble finding ideep4py in command !sudo ln -sf /usr/local/lib/python3.10/dist-packages/ideep4py/lib/libmkldnn.so.0.14.0 /usr/local/lib/python3.10/dist-packages/ideep4py/lib/libmkldnn.so.0, 
+If you have trouble finding ideep4py in command 
+```
+!sudo ln -sf /usr/local/lib/python3.10/dist-packages/ideep4py/lib/libmkldnn.so.0.14.0 /usr/local/lib/python3.10/dist-packages/ideep4py/lib/libmkldnn.so.0
+```
 You can just comment it out and won’t affect the result
 
 
