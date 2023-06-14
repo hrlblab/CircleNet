@@ -35,6 +35,7 @@ Box representation has been extensively used for object detection in computer vi
 ## Installation
 
 Please refer to [INSTALL.md](docs/INSTALL.md) for installation instructions.
+[Update2023]Here is the new [INSTALL2023.md](docs/INSTALL2023.md) for installation in year 2023.
 
 ## CircleNet - Image Demo
 CircleNet can easily be run on a single image or a folder of images.
