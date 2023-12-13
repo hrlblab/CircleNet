@@ -83,7 +83,7 @@ Please download the following two files:
 
 1. [Human Kidney WSI (case 03-1.scn)](https://vanderbilt.box.com/s/s530m45rvk626xi1thwcdc2bhoea758r)
 
-2. [Human Kidney Model (model_10.pth)](https://vumc.box.com/s/wpar2kz9600h9ao3wowjzc3y50znneop)
+2. [Human Kidney Model (model_10.pth)](https://vanderbilt.box.com/s/ryqmwonp3k0yg94u6w0yv4kyu17g2x49)
 
 To run it on a testing scan, please go to `src` folder and run
 
