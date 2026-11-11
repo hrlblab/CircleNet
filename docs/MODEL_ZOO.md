@@ -14,7 +14,7 @@ archive. See [training settings and limitations](MONUSEG_RECONSTRUCTION.md).
 
 | Model | AP | AP50 | AP75 | Download |
 |---|---:|---:|---:|---|
-| CircleNet-HG | 44.15 | 81.91 | 43.28 | [model](https://drive.google.com/file/d/12k4Kze7OkSd1ItcAta92p4PCaR35w5z4/view) |
+| CircleNet-HG | 44.15 | 81.91 | 43.28 | [model](https://huggingface.co/EthanNguyen/CircleNet-Hourglass-MoNuSeg-Reconstructed/resolve/main/hourglass_coco_best.pth) |
 
 Save as `models/hourglass_coco_best.pth` (765,800,105 bytes). SHA-256:
 

@@ -2,7 +2,7 @@
 
 Download the [three dataset splits](DATA.md) and [Hourglass checkpoint](MODEL_ZOO.md).
 These are new data and weights, not the recovered historical archive.
-Lab-owned Box rehosting is planned; current downloads are on Google Drive.
+The final splits and checkpoint are hosted on Hugging Face; rebuild scripts stay here.
 
 ## Dataset
 

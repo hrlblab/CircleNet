@@ -4,9 +4,9 @@
 
 Download the reconstructed splits:
 
-- [Training: 200 images](https://drive.google.com/file/d/15lqGk_r-E7XuLx0AMrE4jxPBuzBZ4ogR/view)
-- [Validation: 100 images](https://drive.google.com/file/d/1Dq5hAjZV7qOeUmrxZQAW2fJXnsW8pxFj/view)
-- [Test: 140 images](https://drive.google.com/file/d/1bis63BTjGg17IRuqTGnD0qXnNX41CwV6/view)
+- [Training: 200 images](https://huggingface.co/datasets/EthanNguyen/CircleNet-MoNuSeg-Reconstructed/resolve/main/MoNuSeg_train.zip)
+- [Validation: 100 images](https://huggingface.co/datasets/EthanNguyen/CircleNet-MoNuSeg-Reconstructed/resolve/main/MoNuSeg_validation.zip)
+- [Test: 140 images](https://huggingface.co/datasets/EthanNguyen/CircleNet-MoNuSeg-Reconstructed/resolve/main/MoNuSeg_test.zip)
 
 Extract the three ZIPs into the same directory, then copy
 `MoNuSeg_CircleNet_Reconstructed/monuseg` into `data/`:
