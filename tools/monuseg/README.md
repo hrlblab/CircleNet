@@ -8,9 +8,11 @@ These scripts are only needed to rebuild or check them.
 Extract the three split ZIPs together. Download the original
 [training](https://drive.google.com/file/d/1ZgqFJomqQGNnsx7w7QBzQQMVA16lbVCA/view)
 and [test](https://drive.google.com/file/d/1NKkSQ5T0ZNQ8aUhh0a8Dt2YKYCQXIViw/view)
-archives. From the CircleNet root, in a separate generation environment:
+archives. From the CircleNet root, use a separate Python 3.12 environment:
 
 ```sh
+python3.12 -m venv .venv-monuseg
+. .venv-monuseg/bin/activate
 python -m pip install -r tools/monuseg/requirements.txt
 python tools/monuseg/prepare_sources.py --train /path/to/original-train.zip --test /path/to/original-test.zip --output /path/to/MoNuSeg_CircleNet_Reconstructed
 python tools/monuseg/rebuild_from_originals.py --root /path/to/MoNuSeg_CircleNet_Reconstructed
@@ -18,12 +20,12 @@ python tools/monuseg/rebuild_from_originals.py --root /path/to/MoNuSeg_CircleNet
 
 Preparation checks archive hashes and converts the selected TIFF/XML pairs.
 Rebuilding overwrites the crops and labels with the recorded plan.
-Generation requirements are separate from training. A Pillow 12.3 rebuild
-matched all released image pixels and labels, but PNG encoding/hashes differed.
+Generation requirements are separate from training. Rebuilding with these pins
+matched all released image pixels and labels; PNG encoding/hashes can still differ.
 
 ## Validate
 
-In a CircleNet environment with its dataset-reader dependencies installed:
+Switch to a CircleNet environment with its dataset-reader dependencies installed:
 
 ```sh
 # Downloads only: skip this copy after rebuilding, which writes its own manifest.

@@ -2,7 +2,21 @@
 
 This document provides tutorials to train and evaluate CircleNet. Before getting started, make sure you have finished [installation](INSTALL.md) and [dataset setup](DATA.md).
 
-## Benchmark evaluation
+## Reconstructed MoNuSeg
+
+Follow [dataset setup](DATA.md), then save the [checkpoint](MODEL_ZOO.md) as
+`models/hourglass_coco_best.pth`. Use a compatible modern PyTorch environment;
+runtime fixes are tracked separately in [PR #35](https://github.com/hrlblab/CircleNet/pull/35).
+From `src/`, evaluate the test split with:
+
+~~~
+python main.py circledet --arch hourglass --dataset monuseg --load_model ../models/hourglass_coco_best.pth --test --ontestdata
+~~~
+
+See [reconstruction notes](MONUSEG_RECONSTRUCTION.md) for the training settings
+and limits. These results do not reproduce the historical benchmark.
+
+## Historical benchmark evaluation
 
 First, download the models you want to evaluate from our [model zoo](MODEL_ZOO.md) and put them in `CircleNet_ROOT/models/`. 
 

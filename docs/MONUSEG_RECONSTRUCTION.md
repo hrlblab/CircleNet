@@ -40,6 +40,10 @@ and no test augmentation. The standard CLI keeps all candidates and reports
 about 44.2 AP. This was one RTX 3090 run with modern PyTorch/CUDA, not the
 paper's runtime. Rotation consistency was not reproduced.
 
+The checkpoint was tested with Python 3.12 and PyTorch 2.14.1+cu130. The legacy
+PyTorch 0.4.1 setup is not supported for this checkpoint; modern runtime fixes
+are tracked in [PR #35](https://github.com/hrlblab/CircleNet/pull/35).
+
 The former HG and DLA downloads both contain epoch-10 Hourglass checkpoints.
 The DLA share is also the README's human-kidney model link; it is not a verified
 MoNuSeg DLA model. The HG file's training task is unknown. No new DLA checkpoint
