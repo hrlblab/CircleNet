@@ -1,0 +1,6 @@
+numpy==2.3.5
+Pillow==13.0.0
+pyarrow==26.0.1
+opencv-python-headless==5.0.0.93
+pycocotools==2.0.11
+matplotlib==3.10.8

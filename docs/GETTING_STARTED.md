@@ -8,17 +8,14 @@ First, download the models you want to evaluate from our [model zoo](MODEL_ZOO.m
 
 ### MoNuSeg 2018
 
-**The scores and rotation results below describe the historical paper
-experiment.** Its original preprocessed archive and verified checkpoints are
-not currently available. For the newly reconstructed dataset and trained
-Hourglass checkpoint, follow [these release notes](MONUSEG_RECONSTRUCTION.md).
-Do not expect the historical scores when substituting the reconstruction.
+The scores below are historical paper results. For the new data and checkpoint,
+see [reconstruction notes](MONUSEG_RECONSTRUCTION.md); the scores are not interchangeable.
 
 #### HG
 To evaluate MoNuSeg object detection with HG, run
 
 ~~~
-python main.py circledet exp_id CircleNet_HG_Reproduce --arch hourglass --batch_size 4 --master_batch 4 --lr 2.5e-4 --dataset monuseg --load_model ../models/circledet_monuseg_hg.pth --test --ontestdata --debug 4
+python main.py circledet --exp_id CircleNet_HG_Reproduce --arch hourglass --batch_size 4 --master_batch 4 --lr 2.5e-4 --dataset monuseg --load_model ../models/circledet_monuseg_hg.pth --test --ontestdata --debug 4
 ~~~
 
 The paper reported an AP of `48.7` for its historical data and model.
@@ -29,8 +26,7 @@ To evaluate the rotation consistency, run
 python main.py circledet --exp_id CircleNet_HG_Reproduce --arch hourglass --batch_size 4 --master_batch 4 --lr 2.5e-4   --dataset monuseg --load_model ../models/circledet_monuseg_hg.pth --test --ontestdata --rotate_reproduce 90
 ~~~
 
-The historical rotation-consistency result was `0.8918255489424661`. This has
-not been reproduced with the reconstruction. Qualitative outputs are saved
+The historical rotation result was `0.8918255489424661`. Outputs are saved
 under `exp/circledet/CircleNet_HG_Reproduce/debug`.
 
 #### DLA
@@ -43,7 +39,7 @@ python main.py circledet --exp_id CircleNet_DLA_Reproduce --arch dla_34 --batch_
 
 The paper reported AP `48.6`; no newly validated MoNuSeg DLA checkpoint is provided.
 
-Rotation consistency can be evaluated by appending '--rotate_reproduce 90'. This should give '0.8855951478392722'.
+Append `--rotate_reproduce 90` for rotation consistency. It has not been reproduced on the new data.
 
 ## Training
 

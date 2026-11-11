@@ -1,37 +1,35 @@
 # Dataset preparation
 
-Prepare the dataset before training or evaluation. The reconstruction below is
-intended for new experiments; it does not recover the historical benchmark.
-
-
 ### MoNuSeg 2018
 
-- The historical preprocessed archive is unavailable. A new XML-derived
-  reconstruction contains **200 training, 100 validation, and 140 test patches**.
-- [Reconstruction staging folder](https://drive.google.com/drive/folders/1naE0aCfiyBTolj7FCKVwUB7Sv6vxdDBl):
-  public hosting is pending; access may be restricted. See the
-  [release notes and limitations](MONUSEG_RECONSTRUCTION.md) before use.
-- Download the seven `MoNuSeg_*.zip` files described in the release notes and
-  extract them into the same directory. Place the resulting `monuseg` directory
-  under `data`:
+Download the reconstructed splits:
 
-  ~~~
-  ${CircleNet_ROOT}
-  |-- data
-  '-- |-- monuseg
-  ~~~
+- [Training: 200 images](https://drive.google.com/file/d/15lqGk_r-E7XuLx0AMrE4jxPBuzBZ4ogR/view)
+- [Validation: 100 images](https://drive.google.com/file/d/1Dq5hAjZV7qOeUmrxZQAW2fJXnsW8pxFj/view)
+- [Test: 140 images](https://drive.google.com/file/d/1bis63BTjGg17IRuqTGnD0qXnNX41CwV6/view)
 
-All patches are 512×512 RGB PNGs. Annotation files are named
-`MoNuSeg_train2021.json`, `MoNuSeg_val2021.json`, and `MoNuSeg_test2021.json`,
-with COCO annotations plus `circle_center` and `circle_radius`.
-The package includes original source XML, lossless source image conversions,
-the crop manifest, rebuild scripts, validation results, and attribution.
+Extract the three ZIPs into the same directory, then copy
+`MoNuSeg_CircleNet_Reconstructed/monuseg` into `data/`:
 
-**These are new crops, splits, and rasterized labels.** The historical crop
-coordinates, split assignment, and boundary conventions were not recovered.
-The source-annotation counts also differ from the publication; see the release
-notes. Do not use this package to claim reproduction of the paper's scores.
-The dataset and its transformation are distributed under **CC BY-NC-SA 4.0**.
+~~~
+${CircleNet_ROOT}
+|-- data
+'-- |-- monuseg
+        |-- train
+        |-- val
+        |-- test
+        |-- MoNuSeg_train2021.json
+        |-- MoNuSeg_val2021.json
+        '-- MoNuSeg_test2021.json
+~~~
+
+All images are 512×512 RGB PNGs. The JSON files contain COCO annotations plus
+`circle_center` and `circle_radius`.
+
+The original preprocessed archive is unavailable. These are new crops, splits
+and XML-derived labels, so they do not reproduce the paper's benchmark.
+See [reconstruction notes](MONUSEG_RECONSTRUCTION.md) and
+[rebuild scripts](../tools/monuseg/). Data use **CC BY-NC-SA 4.0**.
 
 ### Glomeruli Dataset
 

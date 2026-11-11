@@ -40,11 +40,9 @@ Please refer to [INSTALL.md](docs/INSTALL.md) for installation instructions.
 ## CircleNet - Image Demo
 CircleNet can easily be run on a single image or a folder of images.
 
-Download a validated checkpoint from the [Model Zoo](docs/MODEL_ZOO.md) and put
-it in `CircleNet_Root/models`. The newly trained MoNuSeg Hourglass checkpoint
-is named `hourglass_coco_best.pth`; its upload/public hosting is pending.
-It was trained on a [new reconstruction](docs/MONUSEG_RECONSTRUCTION.md), not
-the historical crop archive, and its reported scores apply to that reconstruction.
+Download the [Hourglass checkpoint](docs/MODEL_ZOO.md) and save it as
+`CircleNet_Root/models/hourglass_coco_best.pth`. It uses the
+[reconstructed MoNuSeg data](docs/DATA.md), not the historical benchmark.
 
 We provide an example image from [MoNuSeg 2018](https://monuseg.grand-challenge.org/) in docs. 
 
