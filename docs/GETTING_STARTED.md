@@ -8,6 +8,12 @@ First, download the models you want to evaluate from our [model zoo](MODEL_ZOO.m
 
 ### MoNuSeg 2018
 
+**The scores and rotation results below describe the historical paper
+experiment.** Its original preprocessed archive and verified checkpoints are
+not currently available. For the newly reconstructed dataset and trained
+Hourglass checkpoint, follow [these release notes](MONUSEG_RECONSTRUCTION.md).
+Do not expect the historical scores when substituting the reconstruction.
+
 #### HG
 To evaluate MoNuSeg object detection with HG, run
 
@@ -15,7 +21,7 @@ To evaluate MoNuSeg object detection with HG, run
 python main.py circledet exp_id CircleNet_HG_Reproduce --arch hourglass --batch_size 4 --master_batch 4 --lr 2.5e-4 --dataset monuseg --load_model ../models/circledet_monuseg_hg.pth --test --ontestdata --debug 4
 ~~~
 
-This will give an AP of `48.7` if setup correctly. 
+The paper reported an AP of `48.7` for its historical data and model.
 
 To evaluate the rotation consistency, run 
 
@@ -23,7 +29,9 @@ To evaluate the rotation consistency, run
 python main.py circledet --exp_id CircleNet_HG_Reproduce --arch hourglass --batch_size 4 --master_batch 4 --lr 2.5e-4   --dataset monuseg --load_model ../models/circledet_monuseg_hg.pth --test --ontestdata --rotate_reproduce 90
 ~~~
 
-This will give '0.8918255489424661' if setup properly. The qualitative results can be found in 'exp/circledet/CircleNet_HG_Reproduce/debug'
+The historical rotation-consistency result was `0.8918255489424661`. This has
+not been reproduced with the reconstruction. Qualitative outputs are saved
+under `exp/circledet/CircleNet_HG_Reproduce/debug`.
 
 #### DLA
 
@@ -33,7 +41,7 @@ To test with DLA, run
 python main.py circledet --exp_id CircleNet_DLA_Reproduce --arch dla_34 --batch_size 4 --master_batch 4 --lr 2.5e-4  --dataset monuseg --load_model ../models/circledet_monuseg_dla.pth --test --ontestdata --debug 4
 ~~~
 
-This will give an AP of '48.6' if set-up properly. 
+The paper reported AP `48.6`; no newly validated MoNuSeg DLA checkpoint is provided.
 
 Rotation consistency can be evaluated by appending '--rotate_reproduce 90'. This should give '0.8855951478392722'.
 
