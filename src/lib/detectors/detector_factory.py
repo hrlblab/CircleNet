@@ -2,16 +2,12 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from .exdet import ExdetDetector
-from .ddd import DddDetector
-from .ctdet import CtdetDetector
-from .multi_pose import MultiPoseDetector
-from .circledet import CircledetDetector
+from utils.registry import LazyRegistry
 
-detector_factory = {
-  'exdet': ExdetDetector, 
-  'ddd': DddDetector,
-  'ctdet': CtdetDetector,
-  'multi_pose': MultiPoseDetector,
-  'circledet': CircledetDetector,
-}
+detector_factory = LazyRegistry(__package__, {
+  'exdet': ('.exdet', 'ExdetDetector'),
+  'ddd': ('.ddd', 'DddDetector'),
+  'ctdet': ('.ctdet', 'CtdetDetector'),
+  'multi_pose': ('.multi_pose', 'MultiPoseDetector'),
+  'circledet': ('.circledet', 'CircledetDetector'),
+})

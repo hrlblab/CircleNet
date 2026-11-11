@@ -9,7 +9,7 @@ import time
 import torch
 import os
 
-from external.nms import soft_nms
+from utils.circle_nms import soft_nms_circles
 from models.decode import circledet_decode
 from models.utils import flip_tensor
 from utils.image import get_affine_transform
@@ -32,7 +32,8 @@ class CircledetDetector(BaseDetector):
         hm = (hm[0:1] + flip_tensor(hm[1:2])) / 2
         cl = (cl[0:1] + flip_tensor(cl[1:2])) / 2
         reg = reg[0:1] if reg is not None else None
-      torch.cuda.synchronize()
+      if images.is_cuda:
+        torch.cuda.synchronize()
       forward_time = time.time()
       dets = circledet_decode(hm, cl, reg=reg, K=self.opt.K)
 
@@ -49,7 +50,7 @@ class CircledetDetector(BaseDetector):
         meta['out_height'], meta['out_width'], self.opt.num_classes)
     for j in range(1, self.num_classes + 1):
       dets[0][j] = np.array(dets[0][j], dtype=np.float32).reshape(-1, 5)
-      dets[0][j][:, :4] /= scale
+      dets[0][j][:, :3] /= scale
     return dets[0]
 
   def merge_outputs(self, detections):
@@ -58,20 +59,23 @@ class CircledetDetector(BaseDetector):
       results[j] = np.concatenate(
         [detection[j] for detection in detections], axis=0).astype(np.float32)
       if len(self.scales) > 1 or self.opt.nms:
-         soft_nms(results[j], Nt=0.5, method=2)
+         results[j] = soft_nms_circles(results[j])
     scores = np.hstack(
-      [results[j][:, 4] for j in range(1, self.num_classes + 1)])
+      [results[j][:, 3] for j in range(1, self.num_classes + 1)])
     if len(scores) > self.max_per_image:
-      kth = len(scores) - self.max_per_image
-      thresh = np.partition(scores, kth)[kth]
+      keep = np.zeros(len(scores), dtype=bool)
+      keep[np.argsort(-scores, kind='mergesort')[:self.max_per_image]] = True
+      offset = 0
       for j in range(1, self.num_classes + 1):
-        keep_inds = (results[j][:, 4] >= thresh)
+        count = len(results[j])
+        keep_inds = keep[offset:offset + count]
         results[j] = results[j][keep_inds]
+        offset += count
     return results
 
   def debug(self, debugger, images, dets, output, scale=1):
     detection = dets.detach().cpu().numpy().copy()
-    detection[:, :, :4] *= self.opt.down_ratio
+    detection[:, :, :3] *= self.opt.down_ratio
     for i in range(1):
       img = images[i].detach().cpu().numpy().transpose(1, 2, 0)
       img = ((img * self.std + self.mean) * 255).astype(np.uint8)
@@ -79,16 +83,18 @@ class CircledetDetector(BaseDetector):
       debugger.add_blend_img(img, pred, 'pred_hm_{:.1f}'.format(scale))
       debugger.add_img(img, img_id='out_pred_{:.1f}'.format(scale))
       for k in range(len(dets[i])):
-        if detection[i, k, 4] > self.opt.center_thresh:
-          debugger.add_coco_bbox(detection[i, k, :4], detection[i, k, -1],
-                                 detection[i, k, 4],
+        if detection[i, k, 3] > self.opt.center_thresh:
+          debugger.add_coco_circle(detection[i, k, :3], detection[i, k, -1],
+                                 detection[i, k, 3],
                                  img_id='out_pred_{:.1f}'.format(scale))
 
   def show_results(self, debugger, image, results, name="demo"):
+    if name == 'demo':
+      name = getattr(self, 'image_name', name)
+    image_id = os.path.splitext(os.path.basename(name))[0]
 
     if self.opt.filter_boarder:
-      output_h = self.opt.input_h  # hard coded
-      output_w = self.opt.input_w # hard coded
+      output_h, output_w = image.shape[:2]
       for j in range(1, self.num_classes + 1):
         for i in range(len(results[j])):
           cp = [0, 0]
@@ -102,11 +108,15 @@ class CircledetDetector(BaseDetector):
             results[j][i][3]  = 0
             continue
 
-    debugger.add_img(image, img_id=os.path.basename(name.split('.')[0]))
+    debugger.add_img(image, img_id=image_id)
     for j in range(1, self.num_classes + 1):
       for circle in results[j]:
         if circle[3] > self.opt.vis_thresh:
           debugger.add_coco_circle(circle[:3], circle[-1],
-                                   circle[3], img_id=os.path.basename(name.split('.')[0]))
-    debugger.show_all_imgs(pause=self.pause)
+                                   circle[3], img_id=image_id)
+    if self.opt.demo_dir:
+      os.makedirs(self.opt.demo_dir, exist_ok=True)
+      debugger.save_all_imgs(self.opt.demo_dir)
+    else:
+      debugger.show_all_imgs(pause=self.pause)
 

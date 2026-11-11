@@ -200,6 +200,8 @@ class Debugger(object):
     #               font, 0.5, (0, 0, 0), thickness=1, lineType=cv2.LINE_AA)
 
   def add_coco_circle(self, circle, cat=0, conf=1, show_txt=False, img_id='default'):
+    if not np.isfinite(circle).all() or circle[2] <= 0:
+      return
     circle = np.array(circle, dtype=np.int32)
     # cat = (int(cat) + 1) % 80
     cat = int(cat)

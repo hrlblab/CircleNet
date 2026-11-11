@@ -3,6 +3,10 @@
 This document provides tutorials to develop CircleNet. `lib/src/opts` lists a few more options that the current version supports.
 
 ## New dataset
+
+For circle detection, start with the [minimal circle-annotation example and
+coordinate conventions](HOURGLASS_FAQ.md#how-do-i-annotate-my-own-circular-objects-issue-27).
+Generic COCO boxes alone do not supply CircleNet's center/radius targets.
 Basically there are three steps:
 
 - Convert the dataset annotation to [COCO format](http://cocodataset.org/#format-data). Please refer to [src/tools/convert_kitti_to_coco.py](../src/tools/convert_kitti_to_coco.py) for an example to convert kitti format to coco format.

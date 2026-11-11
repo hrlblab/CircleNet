@@ -2,16 +2,12 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from .ctdet import CtdetTrainer
-from .circledet import CircleTrainer
-from .ddd import DddTrainer
-from .exdet import ExdetTrainer
-from .multi_pose import MultiPoseTrainer
+from utils.registry import LazyRegistry
 
-train_factory = {
-  'exdet': ExdetTrainer, 
-  'ddd': DddTrainer,
-  'ctdet': CtdetTrainer,
-  'circledet': CircleTrainer,
-  'multi_pose': MultiPoseTrainer, 
-}
+train_factory = LazyRegistry(__package__, {
+  'exdet': ('.exdet', 'ExdetTrainer'),
+  'ddd': ('.ddd', 'DddTrainer'),
+  'ctdet': ('.ctdet', 'CtdetTrainer'),
+  'circledet': ('.circledet', 'CircleTrainer'),
+  'multi_pose': ('.multi_pose', 'MultiPoseTrainer'),
+})

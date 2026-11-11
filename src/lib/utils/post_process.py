@@ -110,7 +110,8 @@ def circledet_post_process(dets, c, s, h, w, num_classes):
     # print('s[i]')
     # print(s[i])
     # print(w)
-    dets[i,:, 2] = dets[i,:, 2]* (s[i]/w)
+    source_width = np.asarray(s[i]).reshape(-1)[0]
+    dets[i, :, 2] *= source_width / w
     # dets[i, :, 2:4] = transform_preds(
     #       dets[i, :, 2:4], c[i], s[i], (w, h))
     classes = dets[i, :, -1]
