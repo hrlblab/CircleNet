@@ -5,7 +5,7 @@ This document provides tutorials to develop CircleNet. `lib/src/opts` lists a fe
 ## New dataset
 
 For circle detection, start with the [minimal circle-annotation example and
-coordinate conventions](HOURGLASS_FAQ.md#how-do-i-annotate-my-own-circular-objects-issue-27).
+coordinate conventions](RUNTIME_FAQ.md#how-do-i-annotate-my-own-circular-objects-issue-27).
 Generic COCO boxes alone do not supply CircleNet's center/radius targets.
 Basically there are three steps:
 

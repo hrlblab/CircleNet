@@ -1,8 +1,7 @@
 # CircleNet-Installation 2023 by juming xiong
 
 This legacy setup remains available, including its DCNv2 build instructions.
-For current Hourglass circle detection without custom extensions, use the
-[modern Hourglass setup](INSTALL_HOURGLASS.md).
+See [runtime compatibility](RUNTIME_COMPATIBILITY.md) for shared fixes and tested configurations.
 
 ## choose your cuda version
 Please refer this [Website](https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/) to see which cuda version you can choose.

@@ -25,8 +25,8 @@ def create_model(arch, heads, head_conv):
   except ImportError as exc:
     if arch in ('dla', 'resdcn'):
       raise ImportError(
-        '{} requires the legacy DCNv2 extension. See docs/INSTALL2023.md; '
-        'the modern supported path is --arch hourglass.'.format(arch)) from exc
+        '{} requires the legacy DCNv2 extension. See docs/INSTALL2023.md '
+        'for its build instructions.'.format(arch)) from exc
     raise
   model = get_model(num_layers=num_layers, heads=heads, head_conv=head_conv)
   return model

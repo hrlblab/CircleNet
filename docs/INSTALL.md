@@ -1,7 +1,7 @@
 ## Installation
 
 These are the historical PyTorch 0.4.1 instructions, retained for reference.
-For the tested modern Hourglass path, use [INSTALL_HOURGLASS.md](INSTALL_HOURGLASS.md).
+See [runtime compatibility](RUNTIME_COMPATIBILITY.md) for shared fixes and tested configurations.
 
 We used PyTorch 0.4.1 on [Ubuntu 18.04 LTS](https://releases.ubuntu.com/18.04/) with [Anaconda](https://www.anaconda.com/download) Python 3.6.
 

@@ -12,7 +12,6 @@ import time
 from progress.bar import Bar
 import torch
 
-from external.nms import soft_nms
 from opts import opts
 from logger import Logger
 from utils.utils import AverageMeter
@@ -32,9 +31,11 @@ class PrefetchDataset(torch.utils.data.Dataset):
     img_info = self.load_image_func(ids=[img_id])[0]
     img_path = os.path.join(self.img_dir, img_info['file_name'])
     image = cv2.imread(img_path)
+    if image is None:
+      raise ValueError('Could not read image: {}'.format(img_path))
     images, meta = {}, {}
-    for scale in opt.test_scales:
-      if opt.task == 'ddd':
+    for scale in self.opt.test_scales:
+      if self.opt.task == 'ddd':
         images[scale], meta[scale] = self.pre_process_func(
           image, scale, img_info['calib'])
       else:
@@ -43,6 +44,13 @@ class PrefetchDataset(torch.utils.data.Dataset):
 
   def __len__(self):
     return len(self.images)
+
+def evaluate_results(dataset, results, opt):
+  # Circle rows are [cx, cy, radius, score, class], not COCO box rows.
+  if opt.task == 'circledet':
+    dataset.run_circle_eval(results, opt.save_dir)
+  else:
+    dataset.run_eval(results, opt.save_dir)
 
 def prefetch_test(opt):
   os.environ['CUDA_VISIBLE_DEVICES'] = opt.gpus_str
@@ -53,7 +61,7 @@ def prefetch_test(opt):
   Logger(opt)
   Detector = detector_factory[opt.task]
   
-  split = 'val' if not opt.trainval else 'test'
+  split = 'test' if opt.ontestdata or opt.trainval else 'val'
   dataset = Dataset(opt, split)
   detector = Detector(opt)
   
@@ -77,7 +85,7 @@ def prefetch_test(opt):
         t, tm = avg_time_stats[t])
     bar.next()
   bar.finish()
-  dataset.run_eval(results, opt.save_dir)
+  evaluate_results(dataset, results, opt)
 
 def test(opt):
   os.environ['CUDA_VISIBLE_DEVICES'] = opt.gpus_str
@@ -88,7 +96,7 @@ def test(opt):
   Logger(opt)
   Detector = detector_factory[opt.task]
   
-  split = 'val' if not opt.trainval else 'test'
+  split = 'test' if opt.ontestdata or opt.trainval else 'val'
   dataset = Dataset(opt, split)
   detector = Detector(opt)
 
@@ -116,7 +124,7 @@ def test(opt):
       Bar.suffix = Bar.suffix + '|{} {:.3f} '.format(t, avg_time_stats[t].avg)
     bar.next()
   bar.finish()
-  dataset.run_eval(results, opt.save_dir)
+  evaluate_results(dataset, results, opt)
 
 if __name__ == '__main__':
   opt = opts().parse()

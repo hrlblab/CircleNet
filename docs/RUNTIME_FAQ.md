@@ -1,10 +1,11 @@
-# Hourglass troubleshooting and circle datasets
+# Runtime troubleshooting and circle datasets
 
 ## `ModuleNotFoundError: external.nms` (issue #29)
 
-Use the [modern Hourglass environment](INSTALL_HOURGLASS.md). Standard
-`circledet --arch hourglass` no longer imports the optional compiled NMS or
-DCNv2 extensions. Do not fix this by creating an empty `_ext` or `nms` module.
+Factories now import only the selected component's dependencies; see
+[runtime compatibility](RUNTIME_COMPATIBILITY.md). The circle detector no
+longer imports compiled box NMS. A selected backbone still needs its own
+dependencies. Do not fix this by creating an empty `_ext` or `nms` module.
 Other legacy detector tasks may still need their documented compiled modules.
 For a headless server, pass `--demo_dir outputs/demo`; the headless OpenCV
 package cannot display GUI windows. Native Windows has not been validated;
@@ -15,15 +16,14 @@ the reported Windows issue still needs reporter confirmation or a WSL test.
 Print `torch.__version__`, `torch.version.cuda`, and
 `torch.cuda.is_available()` in the environment running CircleNet. `nvidia-smi`
 reports driver capability; it is not the CUDA toolkit selected by `nvcc`.
-For the modern Hourglass path no CUDA extension is compiled: use a compatible
-PyTorch wheel and NVIDIA driver. There is no `_ext` directory to create.
+For backbones without custom CUDA extensions, use a compatible PyTorch wheel
+and NVIDIA driver. An empty `_ext` directory does not supply an extension.
 
 For legacy DLA/ResNet-DCN, check `nvcc --version` and the toolkit selected by
 `CUDA_HOME` against the PyTorch build. Use the DCNv2 branch matching that
 legacy PyTorch release and rebuild within the same environment, following
 [INSTALL2023.md](INSTALL2023.md). Installing new package versions alone does
-not port an old CUDA extension. DLA compilation is outside the validated
-modern Hourglass support scope.
+not port an old CUDA extension. DLA compilation was not validated here.
 
 ## What does `score` mean? Which threshold? (issue #28)
 
@@ -85,7 +85,7 @@ class counts. See [DEVELOP.md](DEVELOP.md).
 
 ## XML exists but ImageScope shows no annotations (issue #32)
 
-The modern Hourglass path does not validate the SCN/WSI pipeline or ImageScope.
+The runtime checks do not validate the SCN/WSI pipeline or ImageScope.
 First confirm the XML contains regions and finite vertices:
 
 ```sh

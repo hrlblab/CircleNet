@@ -1,4 +1,4 @@
-"""CPU regression tests; GPU entry-point checks are documented separately."""
+"""Shared runtime regressions; GPU validation scope is documented separately."""
 import json
 import os
 from pathlib import Path
@@ -6,7 +6,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import MagicMock, Mock, patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / 'src'), str(ROOT / 'src/lib')]
@@ -21,10 +21,27 @@ from utils.circle_nms import circle_iou, soft_nms_circles
 
 
 class RuntimeTests(unittest.TestCase):
+    def test_registry_membership_and_custom_registration_remain_dict_compatible(self):
+        from utils.registry import LazyRegistry
+        registry = LazyRegistry('models', {'optional': ('.missing', 'Model')})
+        with patch('utils.registry.import_module', side_effect=AssertionError('eager import')):
+            self.assertIn('optional', registry)
+            self.assertNotIn('unknown', registry)
+            custom = object()
+            registry['custom'] = custom
+            self.assertIs(registry['custom'], custom)
+            registry['optional'] = custom
+            self.assertIs(registry['optional'], custom)
+            del registry['optional']
+            self.assertNotIn('optional', registry)
+            self.assertEqual(list(registry), ['custom'])
+            with self.assertRaises(KeyError):
+                registry['optional']
+
     def test_standard_entrypoints_do_not_import_optional_extensions(self):
         code = '''
 import sys
-import demo, main
+import demo, main, test
 from detectors.detector_factory import detector_factory
 from trains.train_factory import train_factory
 from datasets.dataset_factory import get_dataset
@@ -67,8 +84,11 @@ assert 'openslide' not in sys.modules
                 load_model(torch.nn.Linear(2, 1), str(path))
 
     def test_dcn_architecture_reports_its_optional_dependency(self):
-        with self.assertRaisesRegex(ImportError, 'legacy DCNv2'):
-            create_model('dla_34', {'hm': 1, 'cl': 1, 'reg': 2}, 256)
+        # Do not depend on whether a developer has installed the optional extension.
+        with patch('models.model._model_factory', new=MagicMock()) as factory:
+            factory.__getitem__.side_effect = ImportError('DCNv2 unavailable')
+            with self.assertRaisesRegex(ImportError, 'legacy DCNv2'):
+                create_model('dla_34', {'hm': 1, 'cl': 1, 'reg': 2}, 256)
 
     def test_circle_postprocessing_does_not_scale_score_or_class(self):
         detector = CircledetDetector.__new__(CircledetDetector)
@@ -160,6 +180,29 @@ assert 'openslide' not in sys.modules
         dets = {1: np.array([[10, 10, 4, .9, 0], [20, 20, 4, .9, 0]], np.float32)}
         self.assertEqual(len(detector.merge_outputs([dets])[1]), 1)
 
+    def test_prefetch_loader_uses_instance_options_without_global_state(self):
+        from test import PrefetchDataset
+        with tempfile.TemporaryDirectory() as folder:
+            Image.new('RGB', (32, 24), 'white').save(Path(folder) / 'sample.png')
+            dataset = Mock(images=[7], img_dir=folder)
+            dataset.coco.loadImgs.return_value = [dict(file_name='sample.png')]
+            preprocess = Mock(side_effect=lambda image, scale:
+                              (torch.zeros(1, 3, 24, 32), {'scale': scale}))
+            loader = PrefetchDataset(Mock(test_scales=[.5, 1.], task='circledet'),
+                                     dataset, preprocess)
+            image_id, sample = loader[0]
+            self.assertEqual(image_id, 7)
+            self.assertEqual(set(sample['images']), {.5, 1.})
+            self.assertEqual(sample['image'].shape, (24, 32, 3))
+            self.assertEqual(preprocess.call_count, 2)
+
+    def test_box_tasks_keep_their_existing_evaluator(self):
+        from test import evaluate_results
+        dataset = Mock()
+        evaluate_results(dataset, {}, Mock(task='ctdet', save_dir='output'))
+        dataset.run_eval.assert_called_once_with({}, 'output')
+        dataset.run_circle_eval.assert_not_called()
+
     def test_minimal_custom_circle_sample_and_perfect_evaluation(self):
         from opts import opts
         from datasets.dataset_factory import get_dataset
@@ -189,6 +232,16 @@ assert 'openslide' not in sys.modules
             evaluator.accumulate()
             evaluator.summarize()
             self.assertAlmostEqual(evaluator.stats[0], 1)
+            # The alternate CLI must export circles without mutating radius/score
+            # through the box serializer, which interprets these columns differently.
+            from test import evaluate_results
+            opt.save_dir = folder
+            detections = {1: {1: np.array([[128, 160, 12, .9, 0]], np.float32)}}
+            evaluate_results(dataset, detections, opt)
+            exported = json.loads((Path(folder) / 'results.json').read_text())[0]
+            self.assertEqual(exported['circle_radius'], 12)
+            self.assertEqual(exported['score'], .9)
+            np.testing.assert_allclose(detections[1][1][0], [128, 160, 12, .9, 0])
 
 
 if __name__ == '__main__':

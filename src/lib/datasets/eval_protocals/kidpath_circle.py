@@ -307,7 +307,8 @@ class CIRCLE:
         print('Loading and preparing results...')
         tic = time.time()
         if type(resFile) == str or (PYTHON_VERSION == 2 and type(resFile) == unicode):
-            anns = json.load(open(resFile))
+            with open(resFile) as result_stream:
+                anns = json.load(result_stream)
         elif type(resFile) == np.ndarray:
             anns = self.loadNumpyAnnotations(resFile)
         else:

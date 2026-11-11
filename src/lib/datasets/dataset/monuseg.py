@@ -134,8 +134,8 @@ class MoNuSeg(data.Dataset):
         return self.num_samples
 
     def save_results(self, results, save_dir):
-        json.dump(self.convert_eval_format(results),
-                  open('{}/results.json'.format(save_dir), 'w'))
+        with open('{}/results.json'.format(save_dir), 'w') as stream:
+            json.dump(self.convert_eval_format(results), stream)
 
     def run_eval(self, results, save_dir):
         # result_json = os.path.join(save_dir, "results.json")
@@ -152,8 +152,8 @@ class MoNuSeg(data.Dataset):
 
 
     def save_circle_results(self, results, save_dir):
-        json.dump(self.convert_eval_circle_format(results),
-                  open('{}/results.json'.format(save_dir), 'w'))
+        with open('{}/results.json'.format(save_dir), 'w') as stream:
+            json.dump(self.convert_eval_circle_format(results), stream)
 
     def run_circle_eval(self, results, save_dir):
         # result_json = os.path.join(save_dir, "results.json")

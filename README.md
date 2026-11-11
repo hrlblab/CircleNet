@@ -34,10 +34,9 @@ Box representation has been extensively used for object detection in computer vi
 
 ## Installation
 
-For single-GPU Hourglass circle detection, use the
-[modern installation and tested standard commands](docs/INSTALL_HOURGLASS.md).
-See the [FAQ](docs/HOURGLASS_FAQ.md) for CUDA/NMS errors, confidence thresholds,
-custom circle datasets, and XML diagnostics. Legacy setups remain below.
+See [runtime compatibility](docs/RUNTIME_COMPATIBILITY.md) for shared runtime
+fixes and their validation scope, and the [FAQ](docs/RUNTIME_FAQ.md) for
+CUDA/NMS errors, confidence thresholds, custom circle datasets, and XML diagnostics.
 
 Please refer to [INSTALL.md](docs/INSTALL.md) for installation instructions.
 [Update2023]Here is the new [INSTALL2023.md](docs/INSTALL2023.md) for installation in year 2023.
