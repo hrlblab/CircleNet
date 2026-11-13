@@ -1,18 +1,35 @@
 # Dataset preparation
 
-If you want to reproduce the results in the paper for benchmark evaluation and training, you will need to setup dataset.
-
-
 ### MoNuSeg 2018
 
-- Download the dataset from [here](https://vanderbilt.box.com/s/13yrjjie7mv0e8mwbrcvq4aynpadlwo8)
-- Place the data in the data folder like
+Download the reconstructed splits:
 
-  ~~~
-  ${CircleNet_ROOT}
-  |-- data
-  '-- |-- monuseg
-  ~~~
+- [Training: 200 images](https://huggingface.co/datasets/EthanNguyen/CircleNet-MoNuSeg-Reconstructed/resolve/main/MoNuSeg_train.zip)
+- [Validation: 100 images](https://huggingface.co/datasets/EthanNguyen/CircleNet-MoNuSeg-Reconstructed/resolve/main/MoNuSeg_validation.zip)
+- [Test: 140 images](https://huggingface.co/datasets/EthanNguyen/CircleNet-MoNuSeg-Reconstructed/resolve/main/MoNuSeg_test.zip)
+
+Extract the three ZIPs into the same directory, then copy
+`MoNuSeg_CircleNet_Reconstructed/monuseg` into `data/`:
+
+~~~
+${CircleNet_ROOT}
+|-- data
+'-- |-- monuseg
+        |-- train
+        |-- val
+        |-- test
+        |-- MoNuSeg_train2021.json
+        |-- MoNuSeg_val2021.json
+        '-- MoNuSeg_test2021.json
+~~~
+
+All images are 512×512 RGB PNGs. The JSON files contain COCO annotations plus
+`circle_center` and `circle_radius`.
+
+The original preprocessed archive is unavailable. These are new crops, splits
+and XML-derived labels, so they do not reproduce the paper's benchmark.
+See [reconstruction notes](MONUSEG_RECONSTRUCTION.md) and
+[rebuild scripts](../tools/monuseg/). Data use **CC BY-NC-SA 4.0**.
 
 ### Glomeruli Dataset
 

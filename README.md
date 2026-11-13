@@ -40,7 +40,9 @@ Please refer to [INSTALL.md](docs/INSTALL.md) for installation instructions.
 ## CircleNet - Image Demo
 CircleNet can easily be run on a single image or a folder of images.
 
-First, download the models (By default, [circledet_monuseg_hg](https://vanderbilt.app.box.com/s/a487y8swbjssfogtpbpnb8wsn50fvdm3) from [Model Zoo](docs/MODEL_ZOO.md) and put them in `CircleNet_Root/models`
+Download the [Hourglass checkpoint](docs/MODEL_ZOO.md) and save it as
+`CircleNet_Root/models/hourglass_coco_best.pth`. It uses the
+[reconstructed MoNuSeg data](docs/DATA.md), not the historical benchmark.
 
 We provide an example image from [MoNuSeg 2018](https://monuseg.grand-challenge.org/) in docs. 
 
@@ -49,10 +51,11 @@ We provide an example image from [MoNuSeg 2018](https://monuseg.grand-challenge.
 For nuclei detection, run 
 
 ```
-python demo.py circledet --arch hourglass --demo ../docs/demo.png --load_model ../models/circledet_monuseg_hg.pth
+python demo.py circledet --arch hourglass --demo ../docs/demo.png --load_model ../models/hourglass_coco_best.pth
 ```
 
-If set up correctly, the output should look like
+The historical demonstration below illustrates nuclei detection. Predictions
+from the new checkpoint will differ:
 
 <img src='docs/demoDetect.png' align="center" height="230px">
 

@@ -1,0 +1,282 @@
+{
+  "train": {
+    "original_archive_sha256": "25d3d3185bb2970b397cafa72eb664c9b4d24294aee382e7e3df9885affce742",
+    "xml_cases": 37,
+    "verified_cases": [
+      {
+        "patient": "TCGA-38-6178-01Z-00-DX1",
+        "xml_regions": 424,
+        "mirror_instances": 424,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-HE-7129-01Z-00-DX1",
+        "xml_regions": 1585,
+        "mirror_instances": 1585,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-A7-A13E-01Z-00-DX1",
+        "xml_regions": 314,
+        "mirror_instances": 314,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-HE-7128-01Z-00-DX1",
+        "xml_regions": 1076,
+        "mirror_instances": 1076,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-G9-6356-01Z-00-DX1",
+        "xml_regions": 442,
+        "mirror_instances": 442,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-AY-A8YK-01A-01-TS1",
+        "xml_regions": 363,
+        "mirror_instances": 363,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-NH-A8F7-01A-01-TS1",
+        "xml_regions": 363,
+        "mirror_instances": 363,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-G2-A2EK-01A-02-TSB",
+        "xml_regions": 401,
+        "mirror_instances": 401,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-HE-7130-01Z-00-DX1",
+        "xml_regions": 1863,
+        "mirror_instances": 1863,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-DK-A2I6-01A-01-TS1",
+        "xml_regions": 342,
+        "mirror_instances": 342,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-A7-A13F-01Z-00-DX1",
+        "xml_regions": 356,
+        "mirror_instances": 356,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-E2-A1B5-01Z-00-DX1",
+        "xml_regions": 329,
+        "mirror_instances": 329,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-G9-6348-01Z-00-DX1",
+        "xml_regions": 390,
+        "mirror_instances": 390,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-G9-6336-01Z-00-DX1",
+        "xml_regions": 448,
+        "mirror_instances": 448,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-AR-A1AS-01Z-00-DX1",
+        "xml_regions": 405,
+        "mirror_instances": 405,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-CH-5767-01Z-00-DX1",
+        "xml_regions": 294,
+        "mirror_instances": 294,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-49-4488-01Z-00-DX1",
+        "xml_regions": 557,
+        "mirror_instances": 557,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-21-5784-01Z-00-DX1",
+        "xml_regions": 398,
+        "mirror_instances": 398,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-B0-5710-01Z-00-DX1",
+        "xml_regions": 359,
+        "mirror_instances": 359,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-50-5931-01Z-00-DX1",
+        "xml_regions": 445,
+        "mirror_instances": 445,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-B0-5711-01Z-00-DX1",
+        "xml_regions": 342,
+        "mirror_instances": 342,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-E2-A14V-01Z-00-DX1",
+        "xml_regions": 378,
+        "mirror_instances": 378,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-KB-A93J-01A-01-TS1",
+        "xml_regions": 1391,
+        "mirror_instances": 1391,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-RD-A8N9-01A-01-TS1",
+        "xml_regions": 1165,
+        "mirror_instances": 1165,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-AR-A1AK-01Z-00-DX1",
+        "xml_regions": 433,
+        "mirror_instances": 433,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-G9-6362-01Z-00-DX1",
+        "xml_regions": 472,
+        "mirror_instances": 472,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-G9-6363-01Z-00-DX1",
+        "xml_regions": 354,
+        "mirror_instances": 354,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-B0-5698-01Z-00-DX1",
+        "xml_regions": 357,
+        "mirror_instances": 357,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-18-5592-01Z-00-DX1",
+        "xml_regions": 480,
+        "mirror_instances": 480,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-21-5786-01Z-00-DX1",
+        "xml_regions": 440,
+        "mirror_instances": 440,
+        "rgb_pixels_identical": true
+      }
+    ],
+    "xml_region_total_selected": 16966,
+    "original_archive_url": "https://drive.google.com/file/d/1ZgqFJomqQGNnsx7w7QBzQQMVA16lbVCA/view"
+  },
+  "test": {
+    "original_archive_sha256": "13e522387ae8b1bcc0530e13ff9c7b4d91ec74959ef6f6e57747368d7ee6f88a",
+    "xml_cases": 14,
+    "verified_cases": [
+      {
+        "patient": "TCGA-FG-A4MU-01B-01-TS1",
+        "xml_regions": 465,
+        "mirror_instances": 465,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-44-2665-01B-06-BS6",
+        "xml_regions": 818,
+        "mirror_instances": 818,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-2Z-A9J9-01A-01-TS1",
+        "xml_regions": 575,
+        "mirror_instances": 575,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-ZF-A9R5-01A-01-TS1",
+        "xml_regions": 475,
+        "mirror_instances": 475,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-69-7764-01A-01-TS1",
+        "xml_regions": 441,
+        "mirror_instances": 441,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-A6-6782-01A-01-BS1",
+        "xml_regions": 441,
+        "mirror_instances": 441,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-HT-8564-01Z-00-DX1",
+        "xml_regions": 249,
+        "mirror_instances": 249,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-IZ-8196-01A-01-BS1",
+        "xml_regions": 533,
+        "mirror_instances": 533,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-AO-A0J2-01A-01-BSA",
+        "xml_regions": 356,
+        "mirror_instances": 356,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-CU-A0YN-01A-02-BSB",
+        "xml_regions": 677,
+        "mirror_instances": 677,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-AC-A2FO-01A-01-TS1",
+        "xml_regions": 521,
+        "mirror_instances": 521,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-EJ-A46H-01A-03-TSC",
+        "xml_regions": 466,
+        "mirror_instances": 466,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-HC-7209-01A-01-TS1",
+        "xml_regions": 325,
+        "mirror_instances": 325,
+        "rgb_pixels_identical": true
+      },
+      {
+        "patient": "TCGA-GL-6846-01A-01-BS1",
+        "xml_regions": 355,
+        "mirror_instances": 355,
+        "rgb_pixels_identical": true
+      }
+    ],
+    "xml_region_total_selected": 6697,
+    "original_archive_url": "https://drive.google.com/file/d/1NKkSQ5T0ZNQ8aUhh0a8Dt2YKYCQXIViw/view"
+  }
+}

@@ -2,17 +2,35 @@
 
 ### Common settings and notes
 
-- The experiments are run with an Nvidia 1080 Ti (11 GB), PyTorch 0.4.1, CUDA 9.0, and CUDNN 7.1.
+- Historical experiments used an Nvidia 1080 Ti (11 GB), PyTorch 0.4.1, CUDA 9.0,
+  and CUDNN 7.1.
 
 ## Object Detection
 
-### MoNuSeg 2018
+### Reconstructed MoNuSeg
 
-| Model                    |      mAP     |  Download | 
-|--------------------------|-------------|----------------|
-|[circledet\_monuseg\_hg](../experiments/circledet_monuseg_hg.sh)|    48.7     | [model](https://vanderbilt.box.com/s/f705is49vvv5b62clz0glk920abdvpft) |
-|[circledet\_monuseg\_dla](../experiments/circledet_monuseg_dla.sh)  |   48.6  | [model](https://vanderbilt.box.com/s/ryqmwonp3k0yg94u6w0yv4kyu17g2x49) |
-|[ctdet\_monuseg\_hg](../experiments/ctdet_monuseg_hg.sh)|   44.7 | model (in progress)|
-|[ctdet\_monuseg\_dla](../experiments/ctdet_monseg_dla.sh) |   39.9  | model (in progress)|
+This checkpoint was trained on the [new splits](DATA.md), not the historical
+archive. See [training settings and limitations](MONUSEG_RECONSTRUCTION.md).
 
-Note: The original model files have been lost. The above models were reproduced, so results may vary slightly.
+| Model | AP | AP50 | AP75 | Download |
+|---|---:|---:|---:|---|
+| CircleNet-HG | 44.15 | 81.91 | 43.28 | [model](https://huggingface.co/EthanNguyen/CircleNet-Hourglass-MoNuSeg-Reconstructed/resolve/main/hourglass_coco_best.pth) |
+
+Save as `models/hourglass_coco_best.pth` (765,800,105 bytes). SHA-256:
+
+```
+2744597be28071b738243ac9f3113b16b700537becde47e7646bc4f552bb0db7
+```
+
+### Historical MoNuSeg 2018
+
+Paper results are retained below for reference. The original model files were
+reported lost. Replacement HG/DLA shares are not verified MoNuSeg models;
+[no new DLA checkpoint is provided](MONUSEG_RECONSTRUCTION.md).
+
+| Model | mAP | Download |
+|---|---:|---|
+|[circledet\_monuseg\_hg](../experiments/circledet_monuseg_hg.sh)|48.7|Not currently verified|
+|[circledet\_monuseg\_dla](../experiments/circledet_monuseg_dla.sh)|48.6|Not currently verified|
+|[ctdet\_monuseg\_hg](../experiments/ctdet_monuseg_hg.sh)|44.7|model (in progress)|
+|[ctdet\_monuseg\_dla](../experiments/ctdet_monseg_dla.sh)|39.9|model (in progress)|

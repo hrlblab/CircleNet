@@ -1,0 +1,30 @@
+{
+  "train": {
+    "images": 200,
+    "annotations": 29946,
+    "source_patients": 20,
+    "sampled_mask_circle_enclosures": 300,
+    "coco_reader": "pass",
+    "circlenet_circle_reader": "pass"
+  },
+  "val": {
+    "images": 100,
+    "annotations": 20050,
+    "source_patients": 10,
+    "sampled_mask_circle_enclosures": 201,
+    "coco_reader": "pass",
+    "circlenet_circle_reader": "pass"
+  },
+  "test": {
+    "images": 140,
+    "annotations": 19885,
+    "source_patients": 14,
+    "sampled_mask_circle_enclosures": 199,
+    "coco_reader": "pass",
+    "circlenet_circle_reader": "pass"
+  },
+  "all_image_checksums": "pass",
+  "patient_split_overlap": 0,
+  "model_inference": "not run",
+  "historical_score_reproduction": "not claimed"
+}

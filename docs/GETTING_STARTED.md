@@ -2,20 +2,36 @@
 
 This document provides tutorials to train and evaluate CircleNet. Before getting started, make sure you have finished [installation](INSTALL.md) and [dataset setup](DATA.md).
 
-## Benchmark evaluation
+## Reconstructed MoNuSeg
+
+Follow [dataset setup](DATA.md), then save the [checkpoint](MODEL_ZOO.md) as
+`models/hourglass_coco_best.pth`.
+From `src/`, evaluate the test split with:
+
+~~~
+python main.py circledet --arch hourglass --dataset monuseg --load_model ../models/hourglass_coco_best.pth --test --ontestdata
+~~~
+
+See [reconstruction notes](MONUSEG_RECONSTRUCTION.md) for the training settings
+and limits. These results do not reproduce the historical benchmark.
+
+## Historical benchmark evaluation
 
 First, download the models you want to evaluate from our [model zoo](MODEL_ZOO.md) and put them in `CircleNet_ROOT/models/`. 
 
 ### MoNuSeg 2018
 
+The scores below are historical paper results. For the new data and checkpoint,
+see [reconstruction notes](MONUSEG_RECONSTRUCTION.md); the scores are not interchangeable.
+
 #### HG
 To evaluate MoNuSeg object detection with HG, run
 
 ~~~
-python main.py circledet exp_id CircleNet_HG_Reproduce --arch hourglass --batch_size 4 --master_batch 4 --lr 2.5e-4 --dataset monuseg --load_model ../models/circledet_monuseg_hg.pth --test --ontestdata --debug 4
+python main.py circledet --exp_id CircleNet_HG_Reproduce --arch hourglass --batch_size 4 --master_batch 4 --lr 2.5e-4 --dataset monuseg --load_model ../models/circledet_monuseg_hg.pth --test --ontestdata --debug 4
 ~~~
 
-This will give an AP of `48.7` if setup correctly. 
+The paper reported an AP of `48.7` for its historical data and model.
 
 To evaluate the rotation consistency, run 
 
@@ -23,7 +39,8 @@ To evaluate the rotation consistency, run
 python main.py circledet --exp_id CircleNet_HG_Reproduce --arch hourglass --batch_size 4 --master_batch 4 --lr 2.5e-4   --dataset monuseg --load_model ../models/circledet_monuseg_hg.pth --test --ontestdata --rotate_reproduce 90
 ~~~
 
-This will give '0.8918255489424661' if setup properly. The qualitative results can be found in 'exp/circledet/CircleNet_HG_Reproduce/debug'
+The historical rotation result was `0.8918255489424661`. Outputs are saved
+under `exp/circledet/CircleNet_HG_Reproduce/debug`.
 
 #### DLA
 
@@ -33,9 +50,9 @@ To test with DLA, run
 python main.py circledet --exp_id CircleNet_DLA_Reproduce --arch dla_34 --batch_size 4 --master_batch 4 --lr 2.5e-4  --dataset monuseg --load_model ../models/circledet_monuseg_dla.pth --test --ontestdata --debug 4
 ~~~
 
-This will give an AP of '48.6' if set-up properly. 
+The paper reported AP `48.6`; no newly validated MoNuSeg DLA checkpoint is provided.
 
-Rotation consistency can be evaluated by appending '--rotate_reproduce 90'. This should give '0.8855951478392722'.
+Append `--rotate_reproduce 90` for rotation consistency. It has not been reproduced on the new data.
 
 ## Training
 
