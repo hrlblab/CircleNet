@@ -5,8 +5,7 @@ This document provides tutorials to train and evaluate CircleNet. Before getting
 ## Reconstructed MoNuSeg
 
 Follow [dataset setup](DATA.md), then save the [checkpoint](MODEL_ZOO.md) as
-`models/hourglass_coco_best.pth`. Use a compatible modern PyTorch environment;
-runtime fixes are tracked separately in [PR #35](https://github.com/hrlblab/CircleNet/pull/35).
+`models/hourglass_coco_best.pth`.
 From `src/`, evaluate the test split with:
 
 ~~~
